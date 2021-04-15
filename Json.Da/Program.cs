@@ -19,7 +19,7 @@ namespace Json.Da
         {
             var empList = new List<Employee>();
             var xlApp = new Excel.Application();
-            var xlBook = xlApp.Workbooks.Open("C:\\Users\\PC\\Desktop\\C#\\Проекты\\Json.Da\\Json.Da\\bin\\Debug\\Сведения о преподах.xlsx");
+            var xlBook = xlApp.Workbooks.Open(@"D:\ПМ 2020\StanisLove\Json.Da-master\Json.Da\bin\Debug\Cведения о преподах.xlsx");
             var xlSheet = xlBook.Worksheets["Сведения о преподавателях"];
             for (int i = 3; i <= 120; i++)
             {
@@ -37,15 +37,16 @@ namespace Json.Da
                 }
                 else
                     if (!s[3].ToLower().Contains("отсутствует"))
-                        rank = s[3].Trim();
+                    rank = s[3].Trim();
 
                 var prepod = new Employee()
                 {
+                    Id = i - 2,
                     Surname = surname,
                     Name = name,
                     Fathername = fathername,
                     Position = pos,
-                    Rank = rank                    
+                    Rank = rank
                 };
 
                 empList.Add(prepod);
@@ -62,7 +63,24 @@ namespace Json.Da
 
         static void Main(string[] args)
         {
-            
+            using (ApplicationContext db = new ApplicationContext())
+            {
+                var emplist = GenerateList();
+                //db.Employees.AddRange(emplist);
+                db.Add(emplist[0]);
+                db.SaveChanges();
+                Console.WriteLine("Объекты успешно сохранены");
+                // получаем объекты из бд и выводим на консоль
+                var emp = db.Employees.ToList();
+                Console.WriteLine("Список объектов:");
+                foreach (Employee e in emp)
+                {
+                    Console.WriteLine($"{e.Id}.{e.Surname} - {e.Name} - {e.Fathername} - {e.Position} - {e.Rank}");
+                }
+            }
+            Console.Read();
+
         }
     }
 }
+
