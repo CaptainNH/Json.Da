@@ -17,9 +17,11 @@ namespace Json.Da
     {
         static List<Employee> GenerateList()
         {
+            string path = Environment.CurrentDirectory;
+            Console.WriteLine(path);
             var empList = new List<Employee>();
             var xlApp = new Excel.Application();
-            var xlBook = xlApp.Workbooks.Open(@"D:\ПМ 2020\StanisLove\Json.Da-master\Json.Da\bin\Debug\Cведения о преподах.xlsx");
+            var xlBook = xlApp.Workbooks.Open(path + @"\Cведения о преподах.xlsx");
             var xlSheet = xlBook.Worksheets["Сведения о преподавателях"];
             for (int i = 3; i <= 120; i++)
             {
@@ -67,7 +69,7 @@ namespace Json.Da
             {
                 var emplist = GenerateList();
                 //db.Employees.AddRange(emplist);
-                db.Add(emplist[0]);
+                db.Add(new Employee() { Name = "Стасян", Surname = "А.", Fathername = "Б.", Position = "Да", Rank = "Нет" });
                 db.SaveChanges();
                 Console.WriteLine("Объекты успешно сохранены");
                 // получаем объекты из бд и выводим на консоль
