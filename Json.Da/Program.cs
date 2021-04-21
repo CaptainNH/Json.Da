@@ -21,7 +21,7 @@ namespace Json.Da
             Console.WriteLine(path);
             var empList = new List<Employee>();
             var xlApp = new Excel.Application();
-            var xlBook = xlApp.Workbooks.Open(path + @"\Cведения о преподах.xlsx");
+            var xlBook = xlApp.Workbooks.Open(path + @"\Svedenia.xlsx");
             var xlSheet = xlBook.Worksheets["Сведения о преподавателях"];
             for (int i = 3; i <= 120; i++)
             {
@@ -43,12 +43,14 @@ namespace Json.Da
 
                 var prepod = new Employee()
                 {
-                    Id = i - 2,
+                    //Id = i - 2,
                     Surname = surname,
                     Name = name,
                     Fathername = fathername,
                     Position = pos,
-                    Rank = rank
+                    Rank = rank,
+                    Rate = 2,
+                    Chair = "DA"
                 };
 
                 empList.Add(prepod);
@@ -68,9 +70,14 @@ namespace Json.Da
             using (ApplicationContext db = new ApplicationContext())
             {
                 var emplist = GenerateList();
+                foreach (Employee e in emplist)
+                {
+                    db.Employees.Add(e);
+                    db.SaveChanges();
+                }
                 //db.Employees.AddRange(emplist);
-                db.Add(new Employee() { Name = "Стасян", Surname = "А.", Fathername = "Б.", Position = "Да", Rank = "Нет" });
-                db.SaveChanges();
+                //db.Add(new Employee() { Name = "Стасян", Surname = "А.", Fathername = "Б.", Position = "Да", Rank = "Нет" });
+                //db.SaveChanges();
                 Console.WriteLine("Объекты успешно сохранены");
                 // получаем объекты из бд и выводим на консоль
                 var emp = db.Employees.ToList();
