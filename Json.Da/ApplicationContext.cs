@@ -13,6 +13,7 @@ namespace Json.Da
 
         public ApplicationContext()
         {
+            Database.EnsureDeleted();
             Database.EnsureCreated();
         }
 
