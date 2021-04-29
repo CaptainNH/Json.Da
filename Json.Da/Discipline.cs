@@ -8,5 +8,10 @@ namespace Json.Da
 {
     class Discipline
     {
+        public string Name { get; set; }
+        
+        public string Competencies { get; set; }
+
+
     }
 }
