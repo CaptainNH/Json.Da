@@ -12,10 +12,9 @@ namespace Json.Da
         static List<Employee> GenerateList()
         {
             string path = Environment.CurrentDirectory;
-            Console.WriteLine(path);
             var empList = new List<Employee>();
             var xlApp = new Microsoft.Office.Interop.Excel.Application();
-            var xlBook = xlApp.Workbooks.Open(path + @"\Svedenia.xlsx");
+            var xlBook = xlApp.Workbooks.Open(path + @"\..\..\Documents\Svedenia.xlsx");
             var xlSheet = xlBook.Worksheets["Сведения о преподавателях"];
             for (int i = 3; i <= 120; i++)
             {

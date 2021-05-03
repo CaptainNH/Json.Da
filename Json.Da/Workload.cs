@@ -8,7 +8,8 @@ namespace Json.Da
 {
     class Workload
     {
-        Employee employee { get; set; }
+        Employee Employee { get; set; }
 
+        Syllabus Plan { get; set; }
     }
 }
