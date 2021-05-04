@@ -25,7 +25,7 @@ namespace Json.Da
                 Console.WriteLine(a++ +" "+ item.Name+" "+item.Competencies);
             }
             Console.WriteLine("Bye Bye");
-            //AddEmployee.AddToDB();
+            AddEmployee.AddToDB();
 
         }
     }
