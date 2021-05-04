@@ -20,7 +20,7 @@ namespace Json.Da
             using (ApplicationContext db = new ApplicationContext())
             {
                 var emplist = AddEmployee.GenerateList();
-                foreach (Employee e in emplist)
+                foreach (var e in emplist)
                 {
                     db.Employees.Add(e);
                     db.SaveChanges();

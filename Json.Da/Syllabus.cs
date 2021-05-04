@@ -8,6 +8,8 @@ namespace Json.Da
 {
     class Syllabus
     {
+        public int Id { get; set; }
+
         public Discipline Predmet { get; set; }
 
         public int Year { get; set; }
