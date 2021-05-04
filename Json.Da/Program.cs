@@ -17,7 +17,15 @@ namespace Json.Da
     {
         static void Main(string[] args)
         {
-            AddEmployee.AddToDB();
+            Console.WriteLine("Hello");
+            var hashSet = AddDiscipline.GenerateHash();
+            int a = 0;
+            foreach (var item in hashSet)
+            { 
+                Console.WriteLine(a++ +"       "+ item);
+            }
+            Console.WriteLine("Bye Bye");
+            //AddEmployee.AddToDB();
 
         }
     }

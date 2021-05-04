@@ -4,19 +4,11 @@ using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
-using ClosedXML.Excel;
 
 namespace Json.Da
 {
     class AddEmployee
     {
-        static IXLWorksheet OpenExcelFile(string filePath, string sheetName)
-        {
-            var xlBook = new XLWorkbook(filePath);
-            var xlSheet = xlBook.Worksheet(sheetName);
-            return xlSheet;
-        }
-
         static List<Employee> GenerateList()
         {
             string path = Environment.CurrentDirectory;
@@ -44,7 +36,8 @@ namespace Json.Da
                     if (!s[2].ToLower().Contains("отсутствует"))
                         rank = s[2].Trim();
                 }
-                else if (!s[3].ToLower().Contains("отсутствует"))
+                else
+                    if (!s[3].ToLower().Contains("отсутствует"))
                     rank = s[3].Trim();
                 var prepod = new Employee()
                 {
