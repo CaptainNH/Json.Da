@@ -22,6 +22,7 @@ namespace Json.Da
 
         static double FindRate(string fio, IXLRange range, ref string chair)
         {
+            System.Threading.Thread.CurrentThread.CurrentCulture = new System.Globalization.CultureInfo("en-US");
             double rate = 0;
             foreach (var row in range.Rows())
             {
