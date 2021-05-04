@@ -18,12 +18,16 @@ namespace Json.Da
         static void Main(string[] args)
         {
             Console.WriteLine("Hello");
-            var hashSet = AddDiscipline.GenerateHash();
+            var hashSet = AddDiscipline.GenerateDisciplineList();
             int a = 0;
             foreach (var item in hashSet)
-            { 
-                Console.WriteLine(a++ +" "+ item.Name+" "+item.Competencies);
+            {
+                Console.WriteLine(a++ +" "+item.Name+" "+item.Competencies);
             }
+            //foreach (var item in hashSet)
+            //{
+            //    Console.WriteLine(a++ + " " + item.Key + " " + item.Value);
+            //}
             Console.WriteLine("Bye Bye");
             //AddEmployee.AddToDB();
 

@@ -9,32 +9,43 @@ namespace Json.Da
 {
     class AddDiscipline
     {
-        static HashSet<Discipline> discHash = new HashSet<Discipline>();
-        //static HashSet<Discipline> discList = new HashSet<Discipline>();
+        //static HashSet<Discipline> discHash = new HashSet<Discipline>();
+        static HashSet<String> discHash = new HashSet<string>();
+        static Dictionary<string,string> discMap=new Dictionary<string,string>();
         static void AddToHash(IXLWorksheet workSheet)
         {
             var discRange = workSheet.Range("C6", "C130");
             foreach (var item in discRange.Cells())
             {
+                
 
                 if (!string.IsNullOrEmpty(item.Value.ToString()) && !item.Style.Font.Bold)
                 {
                     int rowNumb = item.Address.RowNumber;
-                    var discipline = new Discipline
+                    string key = item.Value.ToString();
+                    if (!discMap.ContainsKey(key))
                     {
-                        Name = item.Value.ToString(),
-                        //Competencies = workSheet.Cell("BW" + rowNumb.ToString()).Value.ToString()
-                        Competencies = "*"
-                    };
-                    if (!discHash.Contains(discipline))
-                    {
-                        discHash.Add(discipline);
+                        discMap[key]= workSheet.Cell("BW" + rowNumb.ToString()).Value.ToString(); ;
                     }
+                    //discHash.Add(item.Value.ToString());
+                    //var discipline = new Discipline
+                    //{
+                    //    Name = item.Value.ToString(),
+                    //    //Competencies = workSheet.Cell("BW" + rowNumb.ToString()).Value.ToString()
+                    //    Competencies = "*"
+                    //};
+                    //if (!discHash.Contains(discipline))
+                    //{
+                    //    discHash.Add(discipline);
+                    //}
                 }
             }
 
         }
-        public static HashSet<Discipline> GenerateHash()
+        //public static HashSet<String> GenerateHash()
+       // public static HashSet<Discipline> GenerateHash()
+       //public static Dictionary<string,string> GenerateHash()
+       public static List<Discipline> GenerateDisciplineList()
         {
 
             string path = Environment.CurrentDirectory;//Путь до Debug
@@ -56,18 +67,32 @@ namespace Json.Da
             var xlPM3MathEconomPlan = xlBookPm3MathEconom.Worksheet("План");
             var xlPM3MathModPlan = xlBookPm3MathMod.Worksheet("План");
             var xlPM4Plan = xlBookPm4.Worksheet("План");
+            //if(xlPM1Plan.Cell("C7").Value==xlPM1Plan.Cell("C7").Value)
+            //    Console.WriteLine("Pumba");
+            //else
+            //    Console.WriteLine("Plak");
             /*var discHash = new HashSet<string>();*///Множество всех дисциплин
             AddToHash(xlPM1Plan);
             AddToHash(xlPM2Plan);
             AddToHash(xlPM3MathEconomPlan);
-            //AddToHash(xlPM3MathModPlan);
-            //AddToHash(xlPM4Plan);
+            AddToHash(xlPM3MathModPlan);
+            AddToHash(xlPM4Plan);
+            var discList = new List<Discipline>();
+            foreach (var item in discMap)
+            {
+                var discipline = new Discipline {
+                    Name = item.Key,
+                    Competencies = item.Value
+                };
+                discList.Add(discipline);
+               // Console.WriteLine(a++ + " " + item.Key + " " + item.Value);
+            }
 
 
             //discHash.Add(xlPM1Plan.Cell("C7").Value.ToString());
 
 
-            return discHash;
+            return discList;
     }
         
 
