@@ -35,7 +35,7 @@ namespace Json.Da
             return rate;
         }
 
-        static List<Employee> GenerateList()
+        public static List<Employee> GenerateList()
         {
             string path = Environment.CurrentDirectory;
             var empList = new List<Employee>();
@@ -76,20 +76,6 @@ namespace Json.Da
                 empList.Add(prepod);
             }            
             return empList;
-        }
-
-        public static void AddToDB()
-        {
-            using (ApplicationContext db = new ApplicationContext())
-            {
-                var emplist = GenerateList();
-                foreach (Employee e in emplist)
-                {
-                    db.Employees.Add(e);
-                    db.SaveChanges();
-                }
-                Console.WriteLine("Объекты успешно сохранены");
-            }
         }
     }
 }

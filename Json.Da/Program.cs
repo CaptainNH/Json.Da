@@ -17,20 +17,23 @@ namespace Json.Da
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello");
-            var hashSet = AddDiscipline.GenerateDisciplineList();
-            int a = 0;
-            foreach (var item in hashSet)
+            using (ApplicationContext db = new ApplicationContext())
             {
-                Console.WriteLine(a++ +" "+item.Name+" "+item.Competencies);
+                var emplist = AddEmployee.GenerateList();
+                foreach (Employee e in emplist)
+                {
+                    db.Employees.Add(e);
+                    db.SaveChanges();
+                }
+                Console.WriteLine("Сотрудники успешно сохранены");
+                var disclist = AddDiscipline.GenerateDisciplineList();
+                foreach (var d in disclist)
+                {
+                    db.Disciplines.Add(d);
+                    db.SaveChanges();
+                }
+                Console.WriteLine("Предметы успешно сохранены");
             }
-            //foreach (var item in hashSet)
-            //{
-            //    Console.WriteLine(a++ + " " + item.Key + " " + item.Value);
-            //}
-            Console.WriteLine("Bye Bye");
-            AddEmployee.AddToDB();
-
         }
     }
 }
