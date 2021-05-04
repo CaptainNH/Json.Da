@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30804.86
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Json.Da", "Json.Da\Json.Da.csproj", "{F9B0132B-4708-4DD7-8815-6540C3A1D381}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WorkProgramsSequelDB", "Json.Da\WorkProgramsSequelDB.csproj", "{F9B0132B-4708-4DD7-8815-6540C3A1D381}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
