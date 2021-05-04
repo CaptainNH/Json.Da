@@ -29,7 +29,7 @@ namespace Json.Da
             //    Console.WriteLine(a++ + " " + item.Key + " " + item.Value);
             //}
             Console.WriteLine("Bye Bye");
-            //AddEmployee.AddToDB();
+            AddEmployee.AddToDB();
 
         }
     }

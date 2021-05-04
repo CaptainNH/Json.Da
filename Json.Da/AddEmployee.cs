@@ -10,6 +10,9 @@ namespace Json.Da
 {
     class AddEmployee
     {
+        static IXLWorksheet Svedenia;
+        static IXLWorksheet Nagruzki;
+
         static IXLWorksheet OpenExcelFile(string filePath, string sheetName)
         {
             var xlBook = new XLWorkbook(filePath);
@@ -17,26 +20,39 @@ namespace Json.Da
             return xlSheet;
         }
 
+        static double FindRate(string fio, IXLRange range, ref string chair)
+        {
+            double rate = 0;
+            foreach (var row in range.Rows())
+            {
+                string s = row.FirstCell().GetString().Trim();
+                if (s == fio)
+                {
+                    rate = Convert.ToDouble(row.LastCell().GetString().Split(',')[1].Trim().Split()[0]);
+                    chair = Nagruzki.Cell("C2").GetString();
+                }
+            }
+            return rate;
+        }
+
         static List<Employee> GenerateList()
         {
             string path = Environment.CurrentDirectory;
             var empList = new List<Employee>();
-            var xlSheetSvedenia = OpenExcelFile(path + @"\..\..\Documents\Svedenia.xlsx", "Сведения о преподавателях");
-            var xlSheetNagruzki = OpenExcelFile(path + @"\..\..\Documents\Nagruzki.xlsx", "Сводное поручение");
-            var range1 = xlSheetSvedenia.Range("A3:C120");
-            var range2 = xlSheetNagruzki.Range("B13:B19");
+            Svedenia = OpenExcelFile(path + @"\..\..\Documents\Svedenia.xlsx", "Сведения о преподавателях");
+            Nagruzki = OpenExcelFile(path + @"\..\..\Documents\Nagruzki.xlsx", "Сводное поручение");
+            var range1 = Svedenia.Range("A3:C120");
+            var range2 = Nagruzki.Range("B13:I19");
             foreach (var row in range1.Rows())
             {
-                string[] fio = row.Cell(1).GetValue<string>().Trim().Split();
+                string[] fio = row.FirstCell().GetString().Trim().Split();
                 string surname = fio[0].Trim();
                 string name = fio[1].Trim();
                 string fathername = fio[2].Trim();
-                string fioSearch = string.Join(" ", surname + name + fathername);
-                if (range2.Contains(fioSearch))
-                {
-                    
-                }
-                string[] s = row.Cell(3).GetValue<string>().Split(',');
+                string fioSearch = $"{surname} {name} {fathername}";
+                string chair = "-";
+                double rate = FindRate(fioSearch, range2, ref chair);
+                string[] s = row.Cell(3).GetString().Split(',');
                 string pos = s[0].Trim().Split(new string[] { "Должность" }, StringSplitOptions.None)[1].Trim(new char[] { ' ', '-', '–' });
                 string rank = "-";
                 if (s.Length == 3)
@@ -53,7 +69,9 @@ namespace Json.Da
                     Name = name,
                     Fathername = fathername,
                     Position = pos,
-                    Rank = rank
+                    Rank = rank,
+                    Rate = rate,
+                    Chair = chair                    
                 };
                 empList.Add(prepod);
             }            
