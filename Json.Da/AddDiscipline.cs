@@ -9,20 +9,32 @@ namespace Json.Da
 {
     class AddDiscipline
     {
-        static HashSet<string> discHash = new HashSet<string>();
+        static HashSet<Discipline> discHash = new HashSet<Discipline>();
+        //static HashSet<Discipline> discList = new HashSet<Discipline>();
         static void AddToHash(IXLWorksheet workSheet)
         {
-            var discRange = workSheet.Range("C7", "C130");
+            var discRange = workSheet.Range("C6", "C130");
             foreach (var item in discRange.Cells())
             {
+
                 if (!string.IsNullOrEmpty(item.Value.ToString()) && !item.Style.Font.Bold)
                 {
-                    discHash.Add(item.Value.ToString());
+                    int rowNumb = item.Address.RowNumber;
+                    var discipline = new Discipline
+                    {
+                        Name = item.Value.ToString(),
+                        //Competencies = workSheet.Cell("BW" + rowNumb.ToString()).Value.ToString()
+                        Competencies = "*"
+                    };
+                    if (!discHash.Contains(discipline))
+                    {
+                        discHash.Add(discipline);
+                    }
                 }
             }
 
         }
-        public static HashSet<string> GenerateHash()
+        public static HashSet<Discipline> GenerateHash()
         {
 
             string path = Environment.CurrentDirectory;//Путь до Debug
@@ -41,15 +53,15 @@ namespace Json.Da
             var xlBookPm4 = new XLWorkbook(pathPm4);
             var xlPM1Plan = xlBookPm1.Worksheet("План");
             var xlPM2Plan = xlBookPm2.Worksheet("План");
-            var xlPM3MathEconomPlan = xlBookPm1.Worksheet("План");
-            var xlPM3MathModPlan = xlBookPm1.Worksheet("План");
-            var xlPM4Plan = xlBookPm1.Worksheet("План");
+            var xlPM3MathEconomPlan = xlBookPm3MathEconom.Worksheet("План");
+            var xlPM3MathModPlan = xlBookPm3MathMod.Worksheet("План");
+            var xlPM4Plan = xlBookPm4.Worksheet("План");
             /*var discHash = new HashSet<string>();*///Множество всех дисциплин
             AddToHash(xlPM1Plan);
             AddToHash(xlPM2Plan);
             AddToHash(xlPM3MathEconomPlan);
-            AddToHash(xlPM3MathModPlan);
-            AddToHash(xlPM4Plan);
+            //AddToHash(xlPM3MathModPlan);
+            //AddToHash(xlPM4Plan);
 
 
             //discHash.Add(xlPM1Plan.Cell("C7").Value.ToString());

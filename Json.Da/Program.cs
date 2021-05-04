@@ -22,7 +22,7 @@ namespace Json.Da
             int a = 0;
             foreach (var item in hashSet)
             { 
-                Console.WriteLine(a++ +"       "+ item);
+                Console.WriteLine(a++ +" "+ item.Name+" "+item.Competencies);
             }
             Console.WriteLine("Bye Bye");
             //AddEmployee.AddToDB();
