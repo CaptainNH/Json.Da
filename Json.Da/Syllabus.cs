@@ -42,6 +42,7 @@ namespace Json.Da
             CourseWork = "-";
             SumIndependentWork = "";
             Lectures = 0;
+            InteractiveWatch = "";
             LaboratoryExercises = 0;
             Workshops = 0;
             TypesOfLessons = "";
