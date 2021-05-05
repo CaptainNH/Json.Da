@@ -48,7 +48,6 @@ namespace Json.Da
                             syllabus.SetLaboratoryExercises(xlPM1Plan, r, c);
                             syllabus.SetLestures(xlPM1Plan, r, c);
                             syllabus.SetSemester(xlPM1Plan, c);
-                            syllabus.SetSubjectName(xlPM1Plan, r);
                             syllabus.SetSumIndependentWork(xlPM1Plan, r);
                             syllabus.SetTests(xlPM1Plan, r);
                             syllabus.SetWorkshops(xlPM1Plan, r, c);
