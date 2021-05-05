@@ -34,7 +34,8 @@ namespace Json.Da
                     db.SaveChanges();
                 }
                 Console.WriteLine("Предметы успешно сохранены");
-                var syllist = AddSyllabus.GenerateSyllabus();
+                var predmetlist = db.Disciplines.ToList();
+                var syllist = AddSyllabus.GenerateSyllabus(predmetlist);
                 foreach (var s in syllist)
                 {
                     db.Syllabuses.Add(s);
