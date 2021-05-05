@@ -11,6 +11,7 @@ namespace Json.Da
     {
         public DbSet<Employee> Employees { get; set; }
         public DbSet<Discipline> Disciplines { get; set; }
+        public DbSet<Syllabus> Syllabuses { get; set; }
 
         public ApplicationContext()
         {
