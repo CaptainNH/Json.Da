@@ -18,7 +18,6 @@ namespace Json.Da
         static void Main(string[] args)
         {
 
-            AddSyllabus.F();
             using (ApplicationContext db = new ApplicationContext())
             {
                 var emplist = AddEmployee.GenerateList();

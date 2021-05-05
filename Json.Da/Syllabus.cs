@@ -33,12 +33,14 @@ namespace Json.Da
 
         public Syllabus()
         {
+            Year = 0;
             Direction = "";
             Profile = "";
+            Semester = 0;
             CreditUnits = 0;
             Hours = "";
-            SumIndependentWork = "";
             CourseWork = "-";
+            SumIndependentWork = "";
             Lectures = 0;
             LaboratoryExercises = 0;
             Workshops = 0;
@@ -46,11 +48,17 @@ namespace Json.Da
             AuditoryLessons = 0;
         }
 
-        public void SetDirectionAndProfile(IXLWorksheet workSheet)
+        public void SetYear(IXLWorksheet workSheet, string cellName)
+        {
+            if (!string.IsNullOrEmpty(workSheet.Cell(cellName).Value.ToString()))
+                this.Year = Convert.ToInt32(workSheet.Cell(cellName).Value.ToString());
+        }
+
+        public void SetDirectionAndProfile(IXLWorksheet workSheet, string cellName)
         {
             string[] separators = new string[] {"Направленность программы", "Направление подготовки", "Профиль",
                 "Профиль:", "Профили", "Направление", "Программа"}; //разделители направления и профиля
-            var directionAndProfile = workSheet.Cell("B18").Value.ToString().Split(separators, StringSplitOptions.RemoveEmptyEntries); //Сплит по разделителям
+            var directionAndProfile = workSheet.Cell(cellName).Value.ToString().Split(separators, StringSplitOptions.RemoveEmptyEntries); //Сплит по разделителям
             this.Direction = directionAndProfile[0].Trim(' ', ',', ':'); //Получить направление
             this.Profile = "";
             if (directionAndProfile.Length > 1)
@@ -159,12 +167,5 @@ namespace Json.Da
             if (!string.IsNullOrEmpty(workSheet.Cell(row, 3).Value.ToString()))
                 this.SubjectName = workSheet.Cell(row, 3).Value.ToString();
         }
-
-        /*public void Set(IXLWorksheet workSheet, int index)
-        {
-            if (!string.IsNullOrEmpty(workSheet.Cell(, index).Value.ToString()))
-                this. = workSheet.Cell(, index).Value.ToString().Trim(' ');
-        }*/
-
     }
 }

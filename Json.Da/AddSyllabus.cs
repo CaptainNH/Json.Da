@@ -9,23 +9,20 @@ namespace Json.Da
 {
     class AddSyllabus
     {
-       
-
-
-        public static List<Syllabus> F()
+        public static List<Syllabus> GenerateSyllabus()
         {
             var listSyllabus = new List<Syllabus>();
-
             string path = Environment.CurrentDirectory;//Путь до Debug
             string pathPm1 = path + @"\..\..\Documents\Бакалавриат\ПМ\B010302-20-1-ПМ.xlsx";//Путь до ПМ-2020
             var xlBookPm1 = new XLWorkbook(pathPm1);
             var xlPM1Plan = xlBookPm1.Worksheet("План");
             var xlPM1Title = xlBookPm1.Worksheet("Титул");
             //Console.WriteLine(xlPM1Plan.LastColumn());
+
+            var predmetlist = AddDiscipline.GenerateDisciplineList();
+            
             var firstColumn = 'Q'-'A'+1;
             var lastColumn = ('D'-'A'+1)*('Z'-'A'+1);
-            Console.WriteLine(xlPM1Plan.LastRowUsed());
-            Console.WriteLine(xlPM1Plan.LastRow().RangeAddress);
             for (int r = 6; r < 150; r++)
             {
                 var subjectName = xlPM1Plan.Cell(r, 3);
@@ -36,13 +33,15 @@ namespace Json.Da
                         {
                             var syllabus = new Syllabus();
 
-                            syllabus.Year = Convert.ToInt32(xlPM1Title.Cell("T29").Value.ToString());
-                            syllabus.SetDirectionAndProfile(xlPM1Title);
+                            
+                            syllabus.Predmet = predmetlist.Find(item => item.Name == predmet);
+
+                            syllabus.SetYear(xlPM1Title, "T29");
+                            syllabus.SetDirectionAndProfile(xlPM1Plan, "B18");
 
                             syllabus.SetAuditoryLessons(xlPM1Plan, r);
                             syllabus.SetCourseWork(xlPM1Plan, r);
                             syllabus.SetCreditUnits(xlPM1Plan, r);
-                            syllabus.SetDirectionAndProfile(xlPM1Plan);
                             syllabus.SetExam(xlPM1Plan, r);
                             syllabus.SetHours(xlPM1Plan, r);
                             syllabus.SetInteractiveWatch(xlPM1Plan, r);
@@ -56,8 +55,6 @@ namespace Json.Da
 
                             listSyllabus.Add(syllabus);
                             //syllabus.Predmet = AddDiscipline.discMap[syllabus.SubjectName];
-
-
                         }
                     }
             }
