@@ -11,7 +11,7 @@ namespace Json.Da
     {
         //static HashSet<Discipline> discHash = new HashSet<Discipline>();
         //static HashSet<String> discHash = new HashSet<string>();
-        static Dictionary<string, string> discMap = new Dictionary<string, string>();
+        public static Dictionary<string, string> discMap = new Dictionary<string, string>();
         static void AddToHash(IXLWorksheet workSheet)
         {
             var discRange = workSheet.Range("C6", "C130");

@@ -24,19 +24,27 @@ namespace Json.Da
             //Console.WriteLine(xlPM1Plan.LastColumn());
             var firstColumn = 'Q'-'A'+1;
             var lastColumn = ('D'-'A'+1)*('Z'-'A'+1);
-            Console.WriteLine(xlPM1Plan.Cell(2,lastColumn));
-            for (int i = firstColumn; i < lastColumn; i+=7)
+            Console.WriteLine(xlPM1Plan.LastRowUsed());
+            Console.WriteLine(xlPM1Plan.LastRow().RangeAddress);
+            for (int r = 6; r < 150; r++)
             {
-                var syllabus = new Syllabus();
-                
-                syllabus.Year = Convert.ToInt32(xlPM1Title.Cell("T29").Value.ToString());
-                syllabus.DirectionAndProfile(xlPM1Title);
+                var subjectName = xlPM1Plan.Cell(r, 3);
+                if (!string.IsNullOrEmpty(subjectName.Value.ToString()) && !subjectName.Style.Font.Bold)
+                    for (int c = firstColumn; c < lastColumn; c += 7)
+                    {
+                        if (!string.IsNullOrEmpty(xlPM1Plan.Cell(2, c).Value.ToString()))
+                        {
+                            var syllabus = new Syllabus();
 
+                            syllabus.Year = Convert.ToInt32(xlPM1Title.Cell("T29").Value.ToString());
+                            syllabus.DirectionAndProfile(xlPM1Title);
 
-
-                syllabus.Semester = Convert.ToInt32(xlPM1Plan.Cell(2, i).Value.ToString().Split()[1]);
+                            syllabus.SubjectName = subjectName.Value.ToString();
+                            //syllabus.Predmet = AddDiscipline.discMap[syllabus.SubjectName];
+                            syllabus.Semester = Convert.ToInt32(xlPM1Plan.Cell(2, c).Value.ToString().Split()[1]);
+                        }
+                    }
             }
-
             return listSyllabus;
                 
         }
