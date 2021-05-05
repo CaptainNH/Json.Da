@@ -34,7 +34,7 @@ namespace Json.Da
                             var syllabus = new Syllabus();
 
                             
-                            syllabus.Predmet = predmetlist.Find(item => item.Name == predmet);
+                            syllabus.Predmet = predmetlist.Find(item => item.Name == subjectName.Value.ToString());
 
                             syllabus.SetYear(xlPM1Title, "T29");
                             syllabus.SetDirectionAndProfile(xlPM1Plan, "B18");
