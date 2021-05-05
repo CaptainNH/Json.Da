@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+//BANANA
 using System.Text;
 using System.Threading.Tasks;
 
@@ -13,6 +14,7 @@ namespace Json.Da
         public string Name { get; set; }
         
         public string Competencies { get; set; }
+        
 
 
     }
