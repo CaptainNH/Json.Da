@@ -194,6 +194,7 @@
   <ItemGroup>
     <Compile Include="AddDiscipline.cs" />
     <Compile Include="AddEmployee.cs" />
+    <Compile Include="AddSyllabus.cs" />
     <Compile Include="AddWorkload.cs" />
     <Compile Include="ApplicationContext.cs" />
     <Compile Include="Discipline.cs" />
@@ -208,6 +209,7 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="configs\" />
     <Folder Include="Documents\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
