@@ -37,7 +37,7 @@ namespace Json.Da
                             var syllabus = new Syllabus();
 
                             syllabus.Year = Convert.ToInt32(xlPM1Title.Cell("T29").Value.ToString());
-                            syllabus.DirectionAndProfile(xlPM1Title);
+                            syllabus.SetDirectionAndProfile(xlPM1Title);
 
                             syllabus.SubjectName = subjectName.Value.ToString();
                             //syllabus.Predmet = AddDiscipline.discMap[syllabus.SubjectName];

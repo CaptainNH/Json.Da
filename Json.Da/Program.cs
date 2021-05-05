@@ -19,7 +19,7 @@ namespace Json.Da
         {
 
             AddSyllabus.F();
-            /*using (ApplicationContext db = new ApplicationContext())
+            using (ApplicationContext db = new ApplicationContext())
             {
                 var emplist = AddEmployee.GenerateList();
                 foreach (var e in emplist)
@@ -35,7 +35,7 @@ namespace Json.Da
                     db.SaveChanges();
                 }
                 Console.WriteLine("Предметы успешно сохранены");
-            }*/
+            }
         }
     }
 }
