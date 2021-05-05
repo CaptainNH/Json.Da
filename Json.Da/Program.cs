@@ -34,6 +34,13 @@ namespace Json.Da
                     db.SaveChanges();
                 }
                 Console.WriteLine("Предметы успешно сохранены");
+                var syllist = AddSyllabus.GenerateSyllabus();
+                foreach (var s in syllist)
+                {
+                    db.Syllabuses.Add(s);
+                    db.SaveChanges();
+                }
+                Console.WriteLine("Учебные планы успешно сохранены");
             }
         }
     }

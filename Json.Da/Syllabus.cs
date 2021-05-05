@@ -17,6 +17,7 @@ namespace Json.Da
         public string Direction { get; set; }//
         public string Profile { get; set; }//
         public int Semester { get; set; }//
+        public string SubjectName { get; set; }
         public int CreditUnits { get; set; }//
         public string Hours { get; set; }//
         public string CourseWork { get; set; }//
@@ -136,7 +137,7 @@ namespace Json.Da
                 this.Workshops = Convert.ToInt32(workSheet.Cell(row, column+4).Value.ToString().Trim(' '));
         }
 
-        public void CreateTypesOfLessons()
+        public void SetTypesOfLessons()
         {
             string s = "";
             var list = new List<string>();
@@ -159,6 +160,12 @@ namespace Json.Da
         {
             if (!string.IsNullOrEmpty(workSheet.Cell(2, column).Value.ToString()))
                 this.Semester = Convert.ToInt32(workSheet.Cell(2, column).Value.ToString().Split()[1]);
+        }
+
+        public void SetSubjectName(IXLWorksheet workSheet, int row)
+        {
+            if (!string.IsNullOrEmpty(workSheet.Cell(row, 3).Value.ToString()))
+                this.SubjectName = workSheet.Cell(row, 3).Value.ToString();
         }
     }
 }

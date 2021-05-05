@@ -37,13 +37,14 @@ namespace Json.Da
                             syllabus.Predmet = predmetlist.Find(item => item.Name == subjectName.Value.ToString());
 
                             syllabus.SetYear(xlPM1Title, "T29");
-                            syllabus.SetDirectionAndProfile(xlPM1Plan, "B18");
+                            syllabus.SetDirectionAndProfile(xlPM1Title, "B18");
 
                             syllabus.SetAuditoryLessons(xlPM1Plan, r);
                             syllabus.SetCourseWork(xlPM1Plan, r);
                             syllabus.SetCreditUnits(xlPM1Plan, r);
                             syllabus.SetExam(xlPM1Plan, r);
                             syllabus.SetHours(xlPM1Plan, r);
+                            syllabus.SetSubjectName(xlPM1Plan, r);
                             syllabus.SetInteractiveWatch(xlPM1Plan, r);
                             syllabus.SetLaboratoryExercises(xlPM1Plan, r, c);
                             syllabus.SetLestures(xlPM1Plan, r, c);
@@ -51,6 +52,7 @@ namespace Json.Da
                             syllabus.SetSumIndependentWork(xlPM1Plan, r);
                             syllabus.SetTests(xlPM1Plan, r);
                             syllabus.SetWorkshops(xlPM1Plan, r, c);
+                            syllabus.SetTypesOfLessons();
 
                             listSyllabus.Add(syllabus);
                             //syllabus.Predmet = AddDiscipline.discMap[syllabus.SubjectName];
