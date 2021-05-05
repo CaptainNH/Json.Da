@@ -9,7 +9,7 @@ namespace Json.Da
 {
     class AddSyllabus
     {
-        public static List<Syllabus> GenerateSyllabus()
+        public static List<Syllabus> GenerateSyllabus(List<Discipline> predmetlist)
         {
             var listSyllabus = new List<Syllabus>();
             string path = Environment.CurrentDirectory;//Путь до Debug
@@ -18,9 +18,6 @@ namespace Json.Da
             var xlPM1Plan = xlBookPm1.Worksheet("План");
             var xlPM1Title = xlBookPm1.Worksheet("Титул");
             //Console.WriteLine(xlPM1Plan.LastColumn());
-
-            var predmetlist = AddDiscipline.GenerateDisciplineList();
-            
             var firstColumn = 'Q'-'A'+1;
             var lastColumn = ('D'-'A'+1)*('Z'-'A'+1);
             for (int r = 6; r < 150; r++)

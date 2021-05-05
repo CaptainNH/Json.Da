@@ -12,12 +12,12 @@ namespace Json.Da
     {
         public int Id { get; set; }
 
+        public string SubjectName { get; set; }
         public Discipline Predmet { get; set; }
         public int Year { get; set; }
         public string Direction { get; set; }//
         public string Profile { get; set; }//
         public int Semester { get; set; }//
-        public string SubjectName { get; set; }
         public int CreditUnits { get; set; }//
         public string Hours { get; set; }//
         public string CourseWork { get; set; }//
