@@ -39,9 +39,25 @@ namespace Json.Da
                             syllabus.Year = Convert.ToInt32(xlPM1Title.Cell("T29").Value.ToString());
                             syllabus.SetDirectionAndProfile(xlPM1Title);
 
-                            syllabus.SubjectName = subjectName.Value.ToString();
+                            syllabus.SetAuditoryLessons(xlPM1Plan, r);
+                            syllabus.SetCourseWork(xlPM1Plan, r);
+                            syllabus.SetCreditUnits(xlPM1Plan, r);
+                            syllabus.SetDirectionAndProfile(xlPM1Plan);
+                            syllabus.SetExam(xlPM1Plan, r);
+                            syllabus.SetHours(xlPM1Plan, r);
+                            syllabus.SetInteractiveWatch(xlPM1Plan, r);
+                            syllabus.SetLaboratoryExercises(xlPM1Plan, r, c);
+                            syllabus.SetLestures(xlPM1Plan, r, c);
+                            syllabus.SetSemester(xlPM1Plan, c);
+                            syllabus.SetSubjectName(xlPM1Plan, r);
+                            syllabus.SetSumIndependentWork(xlPM1Plan, r);
+                            syllabus.SetTests(xlPM1Plan, r);
+                            syllabus.SetWorkshops(xlPM1Plan, r, c);
+
+                            listSyllabus.Add(syllabus);
                             //syllabus.Predmet = AddDiscipline.discMap[syllabus.SubjectName];
-                            syllabus.Semester = Convert.ToInt32(xlPM1Plan.Cell(2, c).Value.ToString().Split()[1]);
+
+
                         }
                     }
             }

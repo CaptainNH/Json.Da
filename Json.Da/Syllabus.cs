@@ -14,35 +14,36 @@ namespace Json.Da
 
         public Discipline Predmet { get; set; }
         public int Year { get; set; }
-        public string Direction { get; set; }
-        public string Profile { get; set; }
-        public int Semester { get; set; }
+        public string Direction { get; set; }//
+        public string Profile { get; set; }//
+        public int Semester { get; set; }//
         public string SubjectName { get; set; }
-        public int Hours { get; set; }
-        public int CreditUnits { get; set; }
-        public string StudyHours { get; set; }
-        public string CourseWork { get; set; } 
-        public string SumIndependentWork { get; set; }
-        public string InteractiveWatch { get; set; }
-        public bool Test { get; set; }
-        public bool Exam { get; set; }
-        public int Lectures { get; set; }
-        public int LaboratoryExercises { get; set; }
-        public int Workshops { get; set; }
-        public string TypesOfLessons { get; set; }
+        public int CreditUnits { get; set; }//
+        public string Hours { get; set; }//
+        public string CourseWork { get; set; }//
+        public string SumIndependentWork { get; set; }//
+        public string InteractiveWatch { get; set; }//
+        public bool Test { get; set; }//
+        public bool Exam { get; set; }//
+        public int Lectures { get; set; }//
+        public int LaboratoryExercises { get; set; }//
+        public int Workshops { get; set; }//
+        public string TypesOfLessons { get; set; }//
+        public double AuditoryLessons { get; set; }//
 
         public Syllabus()
         {
             Direction = "";
             Profile = "";
             CreditUnits = 0;
-            StudyHours = "";
+            Hours = "";
             SumIndependentWork = "";
             CourseWork = "-";
             Lectures = 0;
             LaboratoryExercises = 0;
             Workshops = 0;
             TypesOfLessons = "";
+            AuditoryLessons = 0;
         }
 
         public void SetDirectionAndProfile(IXLWorksheet workSheet)
@@ -59,13 +60,23 @@ namespace Json.Da
         public void SetCreditUnits(IXLWorksheet workSheet, int row)
         {
             if (!string.IsNullOrEmpty(workSheet.Cell(row,8).Value.ToString()))
-                this.CreditUnits = Convert.ToInt32(workSheet.Cell(8, row).Value.ToString().Trim(' '));
+                this.CreditUnits = Convert.ToInt32(workSheet.Cell(row, 8).Value.ToString().Trim(' '));
         }
 
-        public void SetStudyHours(IXLWorksheet workSheet, int row)
+        public void SetHours(IXLWorksheet workSheet, int row)
         {
             if (!string.IsNullOrEmpty(workSheet.Cell(row, 11).Value.ToString()))
-                this.StudyHours = workSheet.Cell(row,11).Value.ToString().Trim(' ') + " час.";
+                this.Hours = workSheet.Cell(row,11).Value.ToString().Trim(' ') + " час.";
+        }
+
+        public void SetAuditoryLessons(IXLWorksheet workSheet, int row)
+        {
+            double h = 0, iw = 0;
+            if (!string.IsNullOrEmpty(workSheet.Cell(row, 11).Value.ToString()))
+                h = Convert.ToDouble(workSheet.Cell(row, 11).Value.ToString());
+            if (!string.IsNullOrEmpty(workSheet.Cell(row, 14).Value.ToString()))
+                iw = Convert.ToDouble(workSheet.Cell(row, 14).Value.ToString());
+            this.AuditoryLessons = h - iw;
         }
 
         public void SetSumIndependentWork(IXLWorksheet workSheet, int row)
@@ -118,7 +129,7 @@ namespace Json.Da
                 this.Workshops = Convert.ToInt32(workSheet.Cell(row, column+4).Value.ToString().Trim(' '));
         }
 
-        string CreateTypesOfLessons()
+        public void CreateTypesOfLessons()
         {
             string s = "";
             var list = new List<string>();
@@ -134,7 +145,19 @@ namespace Json.Da
                 s = list[0] + " и " + list[1];
             else if (list.Count == 3)
                 s = list[0] + ", " + list[1] + " и " + list[2];
-            return s;
+            this.TypesOfLessons = s;
+        }
+
+        public void SetSemester(IXLWorksheet workSheet, int column)
+        {
+            if (!string.IsNullOrEmpty(workSheet.Cell(2, column).Value.ToString()))
+                this.Semester = Convert.ToInt32(workSheet.Cell(2, column).Value.ToString().Split()[1]);
+        }
+
+        public void SetSubjectName(IXLWorksheet workSheet, int row)
+        {
+            if (!string.IsNullOrEmpty(workSheet.Cell(row, 3).Value.ToString()))
+                this.SubjectName = workSheet.Cell(row, 3).Value.ToString();
         }
 
         /*public void Set(IXLWorksheet workSheet, int index)
