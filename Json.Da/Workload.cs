@@ -10,6 +10,7 @@ namespace Json.Da
     {
         public int Id { get; set; }
 
+        public int Year { get; set; }
         public Employee Employee { get; set; }
 
         public Syllabus Plan { get; set; }

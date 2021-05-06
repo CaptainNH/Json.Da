@@ -62,7 +62,7 @@ namespace Json.Da
            
             string pathPm2 = path + @"\..\..\Documents\Бакалавриат\ПМ\B010302-20-2-ПМ  МатМод Дзанагова.plx.xlsx";//Путь до ПМ-2021
             var xlBookPm2 = new XLWorkbook(pathPm2);
-            var xlPM2Title = xlBookPm2.Worksheet("Титул");
+           var xlPM2Title = xlBookPm2.Worksheet("Титул");
             var xlPM2Plan = xlBookPm2.Worksheet("План");
             FileProcessing(predmetlist, listSyllabus, xlPM2Title, xlPM2Plan);
 
@@ -72,7 +72,7 @@ namespace Json.Da
             var xlPM3MathEconomPlan = xlBookPm3MathEconom.Worksheet("План");
             FileProcessing(predmetlist, listSyllabus, xlPM3MathEconomTitle, xlPM3MathEconomPlan);
 
-            string pathPm3MathMod = path + @"\..\..\Documents\Бакалавриат\ПМ\B010302-20-3-ПМ_МатМод Дзанагова.plx.xlsx";
+           string pathPm3MathMod = path + @"\..\..\Documents\Бакалавриат\ПМ\B010302-20-3-ПМ_МатМод Дзанагова.plx.xlsx";
             var xlBookPm3MathMod = new XLWorkbook(pathPm3MathMod);
             var xlPM3MathModTitlee = xlBookPm3MathMod.Worksheet("Титул");
             var xlPM3MathModPlan = xlBookPm3MathMod.Worksheet("План");
