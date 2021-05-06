@@ -84,31 +84,7 @@ namespace Json.Da
             var xlPM4Plan = xlBookPm4.Worksheet("План");
             FileProcessing(predmetlist, listSyllabus, xlPM4Title, xlPM4Plan);
 
-
-            return listSyllabus;
-                
+            return listSyllabus;               
         }
-
     }
-
-
 }
-
-
-
-
-
-
-
-
-//var lastColumn = xlPM1Plan.Cell("CZ2");
-//var firstColumn = xlPM1Plan.Cell("Q2");
-//var discRange = xlPM1Plan.Range(firstColumn, lastColumn);
-
-//foreach (var item in discRange.Cells())
-//{
-//    if (!string.IsNullOrEmpty(item.Value.ToString()))
-//    {
-//        Console.WriteLine(item);
-//    }
-//}

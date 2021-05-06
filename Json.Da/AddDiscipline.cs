@@ -9,16 +9,12 @@ namespace Json.Da
 {
     class AddDiscipline
     {
-        //static HashSet<Discipline> discHash = new HashSet<Discipline>();
-        //static HashSet<String> discHash = new HashSet<string>();
         public static Dictionary<string, string> discMap = new Dictionary<string, string>();
         static void AddToHash(IXLWorksheet workSheet)
         {
             var discRange = workSheet.Range("C6", "C130");
             foreach (var item in discRange.Cells())
             {
-
-
                 if (!string.IsNullOrEmpty(item.Value.ToString()) && !item.Style.Font.Bold)
                 {
                     int rowNumb = item.Address.RowNumber;
@@ -31,9 +27,7 @@ namespace Json.Da
             }
 
         }
-        //public static HashSet<String> GenerateHash()
-        // public static HashSet<Discipline> GenerateHash()
-        //public static Dictionary<string,string> GenerateHash()
+
         public static List<Discipline> GenerateDisciplineList()
         {
 
@@ -70,6 +64,5 @@ namespace Json.Da
             }
             return discList;
         }
-
     }
 }
