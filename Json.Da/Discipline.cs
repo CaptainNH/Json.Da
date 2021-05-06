@@ -14,8 +14,5 @@ namespace Json.Da
         public string Name { get; set; }
         
         public string Competencies { get; set; }
-        
-
-
     }
 }
