@@ -28,6 +28,7 @@ namespace Json.Da
                             syllabus.SetYear(workSheetTitle, "T29");
                             syllabus.SetDirectionAndProfile(workSheetTitle, "B18");
 
+                            syllabus.SetSemester(workSheetPlan, c);
                             syllabus.SetAuditoryLessons(workSheetPlan, r);
                             syllabus.SetCourseWork(workSheetPlan, r);
                             syllabus.SetCreditUnits(workSheetPlan, r);
@@ -36,8 +37,7 @@ namespace Json.Da
                             syllabus.SetSubjectName(workSheetPlan, r);
                             syllabus.SetInteractiveWatch(workSheetPlan, r);
                             syllabus.SetLaboratoryExercises(workSheetPlan, r, c);
-                            syllabus.SetLestures(workSheetPlan, r, c);
-                            syllabus.SetSemester(workSheetPlan, c);
+                            syllabus.SetLestures(workSheetPlan, r, c);                            
                             syllabus.SetSumIndependentWork(workSheetPlan, r);
                             syllabus.SetTests(workSheetPlan, r);
                             syllabus.SetWorkshops(workSheetPlan, r, c);
