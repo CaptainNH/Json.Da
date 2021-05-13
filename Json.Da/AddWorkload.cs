@@ -58,6 +58,7 @@ namespace Json.Da
                     List<Syllabus> syl = syllist
                         .Where(x => x.Direction.Split()[0] == el.Item1.Split(' ', '-', '_')[1])
                         .Where(x => disc != null && x.Predmet.Name == disc.Name)
+                        .Where(x => x.Year.ToString() == el.Item1.Split(' ', '-', '_')[0])
                         .ToList();
                     foreach (var s in syl)
                     {
