@@ -59,6 +59,7 @@ namespace Json.Da
                         .Where(x => x.Direction.Split()[0] == el.Item1.Split(' ', '-', '_')[1])
                         .Where(x => disc != null && x.Predmet.Name == disc.Name)
                         .Where(x => x.Year.ToString() == el.Item1.Split(' ', '-', '_')[0])
+                        .Where(x => x.Semester.ToString() == el.Item3)
                         .ToList();
                     foreach (var s in syl)
                     {
