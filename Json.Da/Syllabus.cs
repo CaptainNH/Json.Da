@@ -60,7 +60,24 @@ namespace Json.Da
             if (!string.IsNullOrEmpty(workSheet.Cell(cellName).Value.ToString()))
                 this.Year = Convert.ToInt32(workSheet.Cell(cellName).Value.ToString());
         }
+        public static int OnlyYear(IXLWorksheet workSheet, string cellName)
+        {
+            int a = 0;  
+            if (!string.IsNullOrEmpty(workSheet.Cell(cellName).Value.ToString()))
+            {
+                a = Convert.ToInt32(workSheet.Cell(cellName).Value.ToString());
+            }
+            return a;
+        }
+        public static string SetOnlyDirection(IXLWorksheet workSheet, string cellName)
+        {
+            string[] separators = new string[] {"Направленность программы", "Направление подготовки", "Профиль",
+                "Профиль:", "Профили", "Направление", "Программа"}; //разделители направления и профиля
+            var directionAndProfile = workSheet.Cell(cellName).Value.ToString().Split(separators, StringSplitOptions.RemoveEmptyEntries); //Сплит по разделителям
+            string direct = directionAndProfile[0].Trim(' ', ',', ':');
+            return direct; //Получить направление
 
+        }
         public void SetDirectionAndProfile(IXLWorksheet workSheet, string cellName)
         {
             string[] separators = new string[] {"Направленность программы", "Направление подготовки", "Профиль",
