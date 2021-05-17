@@ -12,11 +12,13 @@ namespace Json.Da
     {
         public int Id { get; set; }
 
-        public string SubjectName { get; set; }
-        public Discipline Predmet { get; set; }
         public int Year { get; set; }
         public string Direction { get; set; }//
         public string Profile { get; set; }//
+        public string StudyProgram { get; set; }//
+
+        public string SubjectName { get; set; }
+        public Discipline Predmet { get; set; }
         public int Semester { get; set; }//
         public int CreditUnits { get; set; }//
         public string Hours { get; set; }//
@@ -70,6 +72,12 @@ namespace Json.Da
         {
             if (!string.IsNullOrEmpty(workSheet.Cell(row,8).Value.ToString()))
                 this.CreditUnits = Convert.ToInt32(workSheet.Cell(row, 8).Value.ToString().Trim(' '));
+        }
+
+        public void SetStudyProgram(IXLWorksheet workSheet, string cellName)
+        {
+            if (!string.IsNullOrEmpty(workSheet.Cell(cellName).Value.ToString()))
+                this.StudyProgram = workSheet.Cell(cellName).Value.ToString().Replace("  ", " ").Trim(' ').Split()[2];
         }
 
         public void SetHours(IXLWorksheet workSheet, int row)
