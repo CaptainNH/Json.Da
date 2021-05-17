@@ -16,10 +16,12 @@ namespace Json.Da
         public string Direction { get; set; }//
         public string Profile { get; set; }//
         public string StudyProgram { get; set; }//
+        bool IsGraduateSchool { get; set; }//
 
         public string SubjectName { get; set; }
         public Discipline Predmet { get; set; }
-        public int Semester { get; set; }//
+        public string Semester { get; set; }//
+        public string Course { get; set; }//
         public int CreditUnits { get; set; }//
         public string Hours { get; set; }//
         public string CourseWork { get; set; }//
@@ -33,12 +35,14 @@ namespace Json.Da
         public string TypesOfLessons { get; set; }//
         public double AuditoryLessons { get; set; }//
 
+
         public Syllabus()
         {
             Year = 0;
             Direction = "";
             Profile = "";
-            Semester = 0;
+            Semester = "-";
+            IsGraduateSchool = false;
             CreditUnits = 0;
             Hours = "";
             CourseWork = "-";
@@ -65,7 +69,7 @@ namespace Json.Da
             this.Direction = directionAndProfile[0].Trim(' ', ',', ':'); //Получить направление
             this.Profile = "";
             if (directionAndProfile.Length > 1)
-                this.Profile = "Профиль: " + directionAndProfile[1].Trim(' ', ':'); //Получить профиль, если он есть            
+                this.Profile = directionAndProfile[1].Trim(' ', ':', '\"'); //Получить профиль, если он есть            
         }
 
         public void SetCreditUnits(IXLWorksheet workSheet, int row)
@@ -78,6 +82,8 @@ namespace Json.Da
         {
             if (!string.IsNullOrEmpty(workSheet.Cell(cellName).Value.ToString()))
                 this.StudyProgram = workSheet.Cell(cellName).Value.ToString().Replace("  ", " ").Trim(' ').Split()[2];
+            if (this.StudyProgram == "аспирантуры")
+                this.IsGraduateSchool = true;
         }
 
         public void SetHours(IXLWorksheet workSheet, int row)
@@ -119,13 +125,13 @@ namespace Json.Da
             string GradedTest = workSheet.Cell(row,6).Value.ToString();
             string test = workSheet.Cell(row, 5).Value.ToString();
             string tests = GradedTest + test;
-            this.Test = tests.Contains(this.Semester.ToString());
+            this.Test = tests.Contains(this.Semester);
         }
 
         public void SetExam(IXLWorksheet workSheet, int row)
         {
             string exam = workSheet.Cell(row, 4).Value.ToString();
-            this.Exam = exam.Contains(this.Semester.ToString());
+            this.Exam = exam.Contains(this.Semester);
         }
 
         public void SetLestures(IXLWorksheet workSheet, int row, int column)
@@ -167,8 +173,29 @@ namespace Json.Da
 
         public void SetSemester(IXLWorksheet workSheet, int column)
         {
-            if (!string.IsNullOrEmpty(workSheet.Cell(2, column).Value.ToString()))
-                this.Semester = Convert.ToInt32(workSheet.Cell(2, column).Value.ToString().Split()[1]);
+            if (this.IsGraduateSchool)
+            {
+                if (!string.IsNullOrEmpty(workSheet.Cell(1, column).Value.ToString()))
+                    this.Semester = workSheet.Cell(1, column).Value.ToString().Split()[1];
+            }
+            else
+            {
+                if (!string.IsNullOrEmpty(workSheet.Cell(2, column).Value.ToString()))
+                    this.Semester = workSheet.Cell(2, column).Value.ToString().Split()[1];
+            } 
+        }
+
+        public void SetCourse()
+        {
+            int semester;
+            if (this.Semester == "A")
+                semester = 10;
+            else
+                semester = Convert.ToInt32(this.Semester);
+            if (this.IsGraduateSchool)
+                this.Course = this.Semester;
+            else
+                this.Course = ((semester + 1) / 2).ToString();
         }
 
         public void SetSubjectName(IXLWorksheet workSheet, int row)

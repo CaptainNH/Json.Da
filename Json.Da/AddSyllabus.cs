@@ -1,6 +1,7 @@
 ﻿using ClosedXML.Excel;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -11,6 +12,9 @@ namespace Json.Da
     {
         public static void FileProcessing(List<Discipline> predmetlist, List<Syllabus> listSyllabus, IXLWorksheet workSheetTitle, IXLWorksheet workSheetPlan)
         {
+            
+
+
             var firstColumn = 'Q' - 'A' + 1;
             var lastColumn = ('D' - 'A' + 1) * ('Z' - 'A' + 1);
             for (int r = 6; r < 150; r++)
@@ -42,6 +46,7 @@ namespace Json.Da
                             syllabus.SetSumIndependentWork(workSheetPlan, r);
                             syllabus.SetTests(workSheetPlan, r);
                             syllabus.SetWorkshops(workSheetPlan, r, c);
+                            syllabus.SetCourse();
                             syllabus.SetTypesOfLessons();
 
                             listSyllabus.Add(syllabus);
@@ -53,38 +58,19 @@ namespace Json.Da
         public static List<Syllabus> GenerateSyllabus(List<Discipline> predmetlist)
         {
             var listSyllabus = new List<Syllabus>();
-            string path = Environment.CurrentDirectory;//Путь до Debug
+            string path = Environment.CurrentDirectory + @"\..\..\Documents\Бакалавриат";//Путь до Debug
 
-            string pathPm1 = path + @"\..\..\Documents\Бакалавриат\ПМ\B010302-20-1-ПМ.xlsx";//Путь до ПМ-2020
-            var xlBookPm1 = new XLWorkbook(pathPm1);
-            var xlPM1Title = xlBookPm1.Worksheet("Титул");
-            var xlPM1Plan = xlBookPm1.Worksheet("План");
-            FileProcessing(predmetlist, listSyllabus, xlPM1Title, xlPM1Plan);
-           
-            string pathPm2 = path + @"\..\..\Documents\Бакалавриат\ПМ\B010302-20-2-ПМ  МатМод Дзанагова.plx.xlsx";//Путь до ПМ-2021
-            var xlBookPm2 = new XLWorkbook(pathPm2);
-           var xlPM2Title = xlBookPm2.Worksheet("Титул");
-            var xlPM2Plan = xlBookPm2.Worksheet("План");
-            FileProcessing(predmetlist, listSyllabus, xlPM2Title, xlPM2Plan);
 
-            string pathPm3MathEconom = path + @"\..\..\Documents\Бакалавриат\ПМ\B010302-20-3-ПМ _МатЭкон Дзанагова.plx.xlsx";
-            var xlBookPm3MathEconom = new XLWorkbook(pathPm3MathEconom);
-            var xlPM3MathEconomTitle = xlBookPm3MathEconom.Worksheet("Титул");
-            var xlPM3MathEconomPlan = xlBookPm3MathEconom.Worksheet("План");
-            FileProcessing(predmetlist, listSyllabus, xlPM3MathEconomTitle, xlPM3MathEconomPlan);
+            var AllFiles = Directory.EnumerateFiles(path, "*.xls", SearchOption.AllDirectories);
 
-           string pathPm3MathMod = path + @"\..\..\Documents\Бакалавриат\ПМ\B010302-20-3-ПМ_МатМод Дзанагова.plx.xlsx";
-            var xlBookPm3MathMod = new XLWorkbook(pathPm3MathMod);
-            var xlPM3MathModTitlee = xlBookPm3MathMod.Worksheet("Титул");
-            var xlPM3MathModPlan = xlBookPm3MathMod.Worksheet("План");
-            FileProcessing(predmetlist, listSyllabus, xlPM3MathModTitlee, xlPM3MathModPlan);
-
-            string pathPm4 = path + @"\..\..\Documents\Бакалавриат\ПМ\B010302-20-4-ПМ+.plx.xlsx";
-            var xlBookPm4 = new XLWorkbook(pathPm4);
-            var xlPM4Title = xlBookPm4.Worksheet("Титул");
-            var xlPM4Plan = xlBookPm4.Worksheet("План");
-            FileProcessing(predmetlist, listSyllabus, xlPM4Title, xlPM4Plan);
-
+            foreach (var pathFile in AllFiles)
+            {
+                Console.WriteLine(pathFile);
+                var xlBook = new XLWorkbook(pathFile);
+                var xlTitle = xlBook.Worksheet("Титул");
+                var xlPlan = xlBook.Worksheet("План");
+                FileProcessing(predmetlist, listSyllabus, xlTitle, xlPlan);
+            }
             return listSyllabus;               
         }
     }
