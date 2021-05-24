@@ -64,7 +64,9 @@ namespace Json.Da
         public static List<Syllabus> GenerateSyllabus(List<Discipline> predmetlist)
         {
             var listSyllabus = new List<Syllabus>();
-            string path = Environment.CurrentDirectory + @"\..\..\Documents\Бакалавриат";//Путь до Debug
+            string path = Environment.CurrentDirectory + @"\..\..\Documents\Бакалавриат\ПМ";//Путь до Debug
+
+
             var AllFiles = Directory.EnumerateFiles(path, "*.xls", SearchOption.AllDirectories);
             foreach (var pathFile in AllFiles)
             {
