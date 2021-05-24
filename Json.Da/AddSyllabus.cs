@@ -32,6 +32,12 @@ namespace Json.Da
                             syllabus.SetYear(workSheetTitle, "T29");
                             syllabus.SetDirectionAndProfile(workSheetTitle, "B18");
                             syllabus.SetStudyProgram(workSheetTitle, "F14");
+                            syllabus.SetStandart(workSheetTitle, "T31");
+                            syllabus.SetProtocol(workSheetTitle, "A13");
+                            syllabus.SetEdForm(workSheetTitle, "A31", "A30");
+                            syllabus.SetDirectionAbbreviation(workSheetTitle, "B18");
+                            syllabus.SetDirestor("А.М. Дигурова", "Б.В. Туаева", "Л.А. Агузарова");
+                            syllabus.SetDirestor("Проректор по УР", "Проректор по научной деятельности", "Первый проректор");
 
                             syllabus.SetSemester(workSheetPlan, c);
                             syllabus.SetAuditoryLessons(workSheetPlan, r);
@@ -59,10 +65,7 @@ namespace Json.Da
         {
             var listSyllabus = new List<Syllabus>();
             string path = Environment.CurrentDirectory + @"\..\..\Documents\Бакалавриат";//Путь до Debug
-
-
             var AllFiles = Directory.EnumerateFiles(path, "*.xls", SearchOption.AllDirectories);
-
             foreach (var pathFile in AllFiles)
             {
                 Console.WriteLine(pathFile);

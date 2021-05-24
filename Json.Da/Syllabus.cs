@@ -12,11 +12,27 @@ namespace Json.Da
     {
         public int Id { get; set; }
 
-        public int Year { get; set; }
+        public int Year 
+        {
+            get { return Year; }
+            set 
+            { 
+                if (value>1900)
+                {
+                    Year = value;
+                }
+            } 
+        }
         public string Direction { get; set; }//
         public string Profile { get; set; }//
         public string StudyProgram { get; set; }//
         bool IsGraduateSchool { get; set; }//
+        public string Standart {get; set;}//
+        public string Protocol { get; set; }//
+        public string EdForm { get; set; }//
+        public string DirectionAbbreviation { get; set; }//
+        public string Director { get; set; }//
+        public string Position { get; set; }
 
         public string SubjectName { get; set; }
         public Discipline Predmet { get; set; }
@@ -36,7 +52,7 @@ namespace Json.Da
         public double AuditoryLessons { get; set; }//
 
 
-        public Syllabus()
+        public Syllabus(IXLWorksheet workSheet, string cellName)
         {
             Year = 0;
             Direction = "";
@@ -72,12 +88,6 @@ namespace Json.Da
                 this.Profile = directionAndProfile[1].Trim(' ', ':', '\"'); //Получить профиль, если он есть            
         }
 
-        public void SetCreditUnits(IXLWorksheet workSheet, int row)
-        {
-            if (!string.IsNullOrEmpty(workSheet.Cell(row,8).Value.ToString()))
-                this.CreditUnits = Convert.ToInt32(workSheet.Cell(row, 8).Value.ToString().Trim(' '));
-        }
-
         public void SetStudyProgram(IXLWorksheet workSheet, string cellName)
         {
             if (!string.IsNullOrEmpty(workSheet.Cell(cellName).Value.ToString()))
@@ -85,6 +95,101 @@ namespace Json.Da
             if (this.StudyProgram == "аспирантуры")
                 this.IsGraduateSchool = true;
         }
+
+
+        public void SetStandart(IXLWorksheet workSheet, string cellName)
+        {
+            if (!string.IsNullOrEmpty(workSheet.Cell(cellName).Value.ToString()))
+            {
+                var s = workSheet.Cell(cellName).Value.ToString().Split(new string[] { "от" }, StringSplitOptions.RemoveEmptyEntries);
+                this.Standart = s[1].Trim(' ') + " г. " + s[0].Trim(' ');
+            }
+                
+        }
+
+        public void SetProtocol(IXLWorksheet workSheet, string cellName)
+        {
+            if (!string.IsNullOrEmpty(workSheet.Cell(cellName).Value.ToString()))
+            {
+                var s = workSheet.Cell(cellName).Value.ToString().Split(new string[] { "Протокол", "от" }, StringSplitOptions.RemoveEmptyEntries);
+                this.Standart = s[1].Trim(' ') + " г. " + s[0].Trim(' ');
+            }
+
+        }
+
+        public void SetEdForm(IXLWorksheet workSheet, string cellName, string cellNameAspir)
+        {
+            var s = new string[2];
+            if (IsGraduateSchool)
+                s = workSheet.Cell(cellNameAspir).Value.ToString().Split(':');
+            else
+                s = workSheet.Cell(cellName).Value.ToString().Split(':');
+            this.EdForm = s[1].Trim(' ') + " " + s[0];
+        }
+
+        public void SetDirectionAbbreviation(IXLWorksheet workSheet, string cellName)
+        {
+            //Создаем аббревиатуры направлений.
+            string directionName = workSheet.Cell(cellName).Value.ToString();
+            string abbreviation = "";
+            if (this.StudyProgram == "магистратуры")
+                abbreviation = "МАГИ_";
+            else if (this.StudyProgram == "аспирантуры")
+            {
+                abbreviation = "АСПИР_";
+                if (this.Profile.Contains("логика"))
+                    abbreviation += "МЛ";
+                else if (this.Profile.Contains("уравнения"))
+                    abbreviation += "ДУ";
+                this.DirectionAbbreviation = abbreviation;
+            }
+            if (directionName.Contains("  "))
+                directionName = directionName.Replace("  ", " ");
+            string[] splittedDirectionName = directionName.Split(' ');
+            if (splittedDirectionName.Contains("Прикладная"))
+                abbreviation += "ПМ";
+            else if (splittedDirectionName.Contains("Педагогическое"))
+                abbreviation += "ПОМИ";
+            else if (splittedDirectionName.Contains("Информатика"))
+                abbreviation += "ИВТ";
+            else
+                abbreviation += "МАТ";
+            this.DirectionAbbreviation = abbreviation;
+        }
+
+        public void SetDirestor(string dir1, string dir2, string dir3)
+        {
+            this.Director = dir1;
+            if (this.StudyProgram == "аспирантуры")
+            {
+                this.Director = dir2;
+            }
+            else if (StudyProgram == "магистратуры")
+            {
+                this.Director = dir3;
+            }
+        }
+
+        public void SetPosition(string pos1, string pos2, string pos3)
+        {
+            this.Position = pos1;
+            if (this.StudyProgram == "аспирантуры")
+            {
+                this.Position = pos2;
+            }
+            else if (StudyProgram == "магистратуры")
+            {
+                this.Position = pos3;
+            }
+        }
+
+        public void SetCreditUnits(IXLWorksheet workSheet, int row)
+        {
+            if (!string.IsNullOrEmpty(workSheet.Cell(row,8).Value.ToString()))
+                this.CreditUnits = Convert.ToInt32(workSheet.Cell(row, 8).Value.ToString().Trim(' '));
+        }
+
+        
 
         public void SetHours(IXLWorksheet workSheet, int row)
         {
