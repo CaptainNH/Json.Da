@@ -52,7 +52,7 @@ namespace Json.Da
         public double AuditoryLessons { get; set; }//
 
 
-        public Syllabus(IXLWorksheet workSheet, string cellName)
+        public Syllabus()
         {
             Year = 0;
             Direction = "";
