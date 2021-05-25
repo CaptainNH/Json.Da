@@ -20,20 +20,20 @@ namespace Json.Da
 
             using (ApplicationContext db = new ApplicationContext())
             {
-                //var emplist = AddEmployee.GenerateList();
-                //foreach (var e in emplist)
-                //{
-                //    db.Employees.Add(e);
-                //    db.SaveChanges();
-                //}
-                //Console.WriteLine("Сотрудники успешно сохранены");
-                //var disclist = AddDiscipline.GenerateDisciplineList();
-                //foreach (var d in disclist)
-                //{
-                //    db.Disciplines.Add(d);
-                //    db.SaveChanges();
-                //}
-                //Console.WriteLine("Предметы успешно сохранены");
+                var emplist = AddEmployee.GenerateList();
+                foreach (var e in emplist)
+                {
+                    db.Employees.Add(e);
+                    db.SaveChanges();
+                }
+                Console.WriteLine("Сотрудники успешно сохранены");
+                var disclist = AddDiscipline.GenerateDisciplineList();
+                foreach (var d in disclist)
+                {
+                    db.Disciplines.Add(d);
+                    db.SaveChanges();
+                }
+                Console.WriteLine("Предметы успешно сохранены");
                 //var syllist = AddSyllabus.GenerateSyllabus(disclist);
                 //foreach (var s in syllist)
                 //{

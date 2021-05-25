@@ -58,7 +58,17 @@ namespace Json.Da
                 var discipline = new Discipline
                 {
                     Name = item.Key,
-                    Competencies = item.Value
+                    Competencies = item.Value,
+                    WordPattern1="StanisLove",
+                    WordPattern2="Arik",
+                    WordPattern3="BANANANa",
+                    WordPattern4="Krovosisi",
+                    WordPattern5="Sani",
+                    WordPattern6="Sos",
+                    WordPattern7="Lkin",
+                    WordPattern8="Bling",
+                    WordPattern9="Tiripiri",
+                    WordPattern10="Tralivali"
                 };
                 discList.Add(discipline);
             }
