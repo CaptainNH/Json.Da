@@ -34,19 +34,19 @@ namespace Json.Da
                     db.SaveChanges();
                 }
                 Console.WriteLine("Предметы успешно сохранены");
-                //var syllist = AddSyllabus.GenerateSyllabus(disclist);
-                //foreach (var s in syllist)
-                //{
-                //    db.Syllabuses.Add(s);
-                //    db.SaveChanges();
-                //}
-                //Console.WriteLine("Учебные планы успешно сохранены");
-                //var wllist = AddWorkload.GenerateNeedInfForWorkLoad(emplist, disclist, syllist);
-                //foreach (var wl in wllist)
-                //{
-                //    db.Workload.Add(wl);
-                //    db.SaveChanges();
-                //}
+                var syllist = AddSyllabus.GenerateSyllabus(disclist);
+                foreach (var s in syllist)
+                {
+                    db.Syllabuses.Add(s);
+                    db.SaveChanges();
+                }
+                Console.WriteLine("Учебные планы успешно сохранены");
+                var wllist = AddWorkload.GenerateNeedInfForWorkLoad(emplist, disclist, syllist);
+                foreach (var wl in wllist)
+                {
+                    db.Workload.Add(wl);
+                    db.SaveChanges();
+                }
                 Console.WriteLine("Нагрузки успешно сохранены");
                 var compList = AddCompetencie.GenerateCompetencies();
                 foreach (var comp in compList)

@@ -23,7 +23,7 @@ namespace Json.Da
                 if (!string.IsNullOrEmpty(subjectName.Value.ToString()) && !subjectName.Style.Font.Bold)
                     for (int c = firstColumn; c < lastColumn; c += 7)
                     {
-                        if (!string.IsNullOrEmpty(workSheetPlan.Cell(2, c).Value.ToString()))
+                        if (!string.IsNullOrEmpty(workSheetPlan.Cell(2, c).Value.ToString()) && !string.IsNullOrEmpty(workSheetPlan.Cell(r, c+1).Value.ToString()))
                         {
                             var syllabus = new Syllabus();
 
@@ -37,7 +37,7 @@ namespace Json.Da
                             syllabus.SetEdForm(workSheetTitle, "A31", "A30");
                             syllabus.SetDirectionAbbreviation(workSheetTitle, "B18");
                             syllabus.SetDirestor("А.М. Дигурова", "Б.В. Туаева", "Л.А. Агузарова");
-                            syllabus.SetDirestor("Проректор по УР", "Проректор по научной деятельности", "Первый проректор");
+                            syllabus.SetPosition("Проректор по УР", "Проректор по научной деятельности", "Первый проректор");
 
                             syllabus.SetSemester(workSheetPlan, c);
                             syllabus.SetAuditoryLessons(workSheetPlan, r);
@@ -65,7 +65,7 @@ namespace Json.Da
         {
             var listSyllabus = new List<Syllabus>();
             string path = Environment.CurrentDirectory + @"\..\..\Documents\Бакалавриат\ПМ";//Путь до Debug
-
+            //string path = Environment.CurrentDirectory + @"\..\..\Documents\Аспирантура";//Путь до Debug
 
             var AllFiles = Directory.EnumerateFiles(path, "*.xls", SearchOption.AllDirectories);
             foreach (var pathFile in AllFiles)

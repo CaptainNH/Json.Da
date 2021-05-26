@@ -12,8 +12,8 @@ namespace Json.Da
     {
         public int Id { get; set; }
 
-        public int Year 
-        {
+        public int Year { get; set; }
+        /*{
             get { return Year; }
             set 
             { 
@@ -22,7 +22,7 @@ namespace Json.Da
                     Year = value;
                 }
             } 
-        }
+        }*/
         public string Direction { get; set; }//
         public string Profile { get; set; }//
         public string StudyProgram { get; set; }//
@@ -129,7 +129,7 @@ namespace Json.Da
             if (!string.IsNullOrEmpty(workSheet.Cell(cellName).Value.ToString()))
             {
                 var s = workSheet.Cell(cellName).Value.ToString().Split(new string[] { "Протокол", "от" }, StringSplitOptions.RemoveEmptyEntries);
-                this.Standart = s[1].Trim(' ') + " г. " + s[0].Trim(' ');
+                this.Protocol = s[1].Trim(' ') + " г. " + s[0].Trim(' ');
             }
 
         }
@@ -141,7 +141,7 @@ namespace Json.Da
                 s = workSheet.Cell(cellNameAspir).Value.ToString().Split(':');
             else
                 s = workSheet.Cell(cellName).Value.ToString().Split(':');
-            this.EdForm = s[1].Trim(' ') + " " + s[0];
+            this.EdForm = s[1].Trim(' ') + " " + s[0].ToLower();
         }
 
         public void SetDirectionAbbreviation(IXLWorksheet workSheet, string cellName)
@@ -176,28 +176,30 @@ namespace Json.Da
 
         public void SetDirestor(string dir1, string dir2, string dir3)
         {
-            this.Director = dir1;
+            string s = dir1;
             if (this.StudyProgram == "аспирантуры")
             {
-                this.Director = dir2;
+                s = dir2;
             }
             else if (StudyProgram == "магистратуры")
             {
-                this.Director = dir3;
+                s = dir3;
             }
+            this.Director = s;
         }
 
         public void SetPosition(string pos1, string pos2, string pos3)
         {
-            this.Position = pos1;
+            string s = pos1;
             if (this.StudyProgram == "аспирантуры")
             {
-                this.Position = pos2;
+                s = pos2;
             }
             else if (StudyProgram == "магистратуры")
             {
-                this.Position = pos3;
+                s = pos3;
             }
+            this.Position = s;
         }
 
         public void SetCreditUnits(IXLWorksheet workSheet, int row)
@@ -315,7 +317,10 @@ namespace Json.Da
             else
                 semester = Convert.ToInt32(this.Semester);
             if (this.IsGraduateSchool)
+            {
                 this.Course = this.Semester;
+                this.Semester = "-";
+            }
             else
                 this.Course = ((semester + 1) / 2).ToString();
         }
