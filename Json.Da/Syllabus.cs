@@ -49,7 +49,7 @@ namespace Json.Da
         public int Lectures { get; set; }//
         public int LaboratoryExercises { get; set; }//
         public int Workshops { get; set; }//
-        public int IndependentWorkBySemester { get; set; }//
+        public double IndependentWorkBySemester { get; set; }//
         public string TypesOfLessons { get; set; }//
         public double AuditoryLessons { get; set; }//
         public string SubjectIndex { get; set; }//
@@ -65,10 +65,14 @@ namespace Json.Da
         //sumLectures
         //sumLabs
         //sumWorkshops
+        public Syllabus()
+        {
+            Semester = "-";
+        }
 
         public Syllabus(List<Discipline> predmetlist, List<Syllabus> listSyllabus, IXLWorksheet workSheetTitle, IXLWorksheet workSheetPlan, IXLWorksheet workSheetComp, Dictionary<string, string> compDic, int row, int column)
         {
-            Predmet = predmetlist.Find(item => item.Name == this.SubjectName);
+
 
             SetYear(workSheetTitle, "T29");
             SetDirectionAndProfile(workSheetTitle, "B18");
@@ -100,6 +104,7 @@ namespace Json.Da
             DecodeSubjectIndex(workSheetPlan, row);
             SetIndependentWorkBySemester(workSheetPlan, row, column);
             SetConsulting(workSheetPlan, row);
+            Predmet = predmetlist.Find(item => item.Name == this.SubjectName);
         }
 
         public void SetYear(IXLWorksheet workSheet, string cellName)
@@ -326,7 +331,7 @@ namespace Json.Da
         {
             this.IndependentWorkBySemester = 0;
             if (!string.IsNullOrEmpty(workSheet.Cell(row, column + 5).Value.ToString()))
-                this.IndependentWorkBySemester = Convert.ToInt32(workSheet.Cell(row, column + 5).Value.ToString().Trim(' '));
+                this.IndependentWorkBySemester = Convert.ToDouble(workSheet.Cell(row, column + 5).Value.ToString().Trim(' '));
         }
 
         public void SetTypesOfLessons()
@@ -407,7 +412,7 @@ namespace Json.Da
 
             while (workSheet.Cell(i, 1).Value.ToString().Split()[0].ToLower() != "блок")
                 i--;
-            string[] ss = workSheet.Cell(i - 1, 1).Value.ToString().Trim(' ').Split('.');
+            string[] ss = workSheet.Cell(i, 1).Value.ToString().Trim(' ').Split('.');
             blockName = ss[0] + ". " + ss[1] + ". ";
 
             if (!string.IsNullOrEmpty(blockName) && !string.IsNullOrEmpty(subsectionName))
