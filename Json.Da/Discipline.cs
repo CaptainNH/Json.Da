@@ -4,6 +4,8 @@ using System.Linq;
 //BANANA
 using System.Text;
 using System.Threading.Tasks;
+using System.Data;
+
 
 namespace Json.Da
 {
@@ -12,17 +14,23 @@ namespace Json.Da
         public int Id { get; set; }
 
         public string Name { get; set; }
-        
+
         public string Competencies { get; set; }
-        public string WordPattern1 { get; set; }
-        public string WordPattern2 { get; set; }
-        public string WordPattern3 { get; set; }
-        public string WordPattern4 { get; set; }
-        public string WordPattern5 { get; set; }
-        public string WordPattern6 { get; set; }
-        public string WordPattern7 { get; set; }
-        public string WordPattern8 { get; set; }
-        public string WordPattern9 { get; set; }
-        public string WordPattern10 { get; set; }
+        public string Compiler { get; set; }
+        public string NamePat { get; set; }
+        public string Date { get; set; }
+        public string Koi { get; set; }
+        public string DisciplineTarget { get; set; }
+        public string OPOP { get; set; }
+        public string Know { get; set; }
+        public string BeAbleTo { get; set; }
+        public string Own { get; set; }
+        public string ControlTasks { get; set; }
+        public string TestTasks { get; set; }
+        public string QuestionForTest { get; set; }
+        public string InformationSupportOfDiscipline { get; set; }
+        public string LogisticsOfTheDiscipline { get; set; }
+        public string UpdateSheet { get; set; }
+        public string IdMan { get; set; }
     }
 }

@@ -20,13 +20,13 @@ namespace Json.Da
 
             using (ApplicationContext db = new ApplicationContext())
             {
-                var emplist = AddEmployee.GenerateList();
-                foreach (var e in emplist)
-                {
-                    db.Employees.Add(e);
-                    db.SaveChanges();
-                }
-                Console.WriteLine("Сотрудники успешно сохранены");
+                //var emplist = AddEmployee.GenerateList();
+                //foreach (var e in emplist)
+                //{
+                //    db.Employees.Add(e);
+                //    db.SaveChanges();
+                //}
+                //Console.WriteLine("Сотрудники успешно сохранены");
                 var disclist = AddDiscipline.GenerateDisciplineList();
                 foreach (var d in disclist)
                 {
@@ -47,13 +47,13 @@ namespace Json.Da
                 //    db.Workload.Add(wl);
                 //    db.SaveChanges();
                 //}
-                Console.WriteLine("Нагрузки успешно сохранены");
-                var compList = AddCompetencie.GenerateCompetencies();
-                foreach (var comp in compList)
-                {
-                    db.Competencie.Add(comp);
-                    db.SaveChanges();
-                }
+                //Console.WriteLine("Нагрузки успешно сохранены");
+                //var compList = AddCompetencie.GenerateCompetencies();
+                //foreach (var comp in compList)
+                //{
+                //    db.Competencie.Add(comp);
+                //    db.SaveChanges();
+                //}
             }
         }
     }
