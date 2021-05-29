@@ -319,13 +319,11 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AddCompetencie.cs" />
     <Compile Include="AddDiscipline.cs" />
     <Compile Include="AddEmployee.cs" />
     <Compile Include="AddSyllabus.cs" />
     <Compile Include="AddWorkload.cs" />
     <Compile Include="ApplicationContext.cs" />
-    <Compile Include="Competencie.cs" />
     <Compile Include="Discipline.cs" />
     <Compile Include="Employee.cs" />
     <Compile Include="Migrations\20210515120425_First.cs" />
