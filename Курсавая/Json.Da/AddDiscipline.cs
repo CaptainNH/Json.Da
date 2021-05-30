@@ -84,9 +84,9 @@ namespace Json.Da
                     QuestionForTest= discJson.QuestionForTest,
                     InformationSupportOfDiscipline= discJson.InformationSupportOfDiscipline,
                     LogisticsOfTheDiscipline= discJson.LogisticsOfTheDiscipline,
-                    UpdateSheet= discJson.UpdateSheet
-
-
+                    UpdateSheet= discJson.UpdateSheet,
+                    EducTechn=discJson.EducTechn,
+                    DiscMap=discJson.DiscMap
                 };
                 discList.Add(discipline);
             }
