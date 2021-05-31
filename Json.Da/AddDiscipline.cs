@@ -7,14 +7,13 @@ using System.Threading.Tasks;
 using ClosedXML.Excel;
 using System.Data;
 using Newtonsoft.Json;
-using System.Data;
+using Json.Da;
 
 namespace Json.Da
 {
-    class Json 
-    {
-        
-    }
+ 
+   
+
     class AddDiscipline
     {
         public static Dictionary<string, string> discMap = new Dictionary<string, string>();
@@ -61,10 +60,10 @@ namespace Json.Da
             AddToHash(xlPM3MathModPlan);
             AddToHash(xlPM4Plan);
             var patJson = path + @"\..\..\Documents\Jsons\0main.json";
-            var jsonText= File.ReadAllText(patJson);
+            var jsonText = File.ReadAllText(patJson);
             var discList = new List<Discipline>();
             var discJson = JsonConvert.DeserializeObject<Discipline>(jsonText);
-            
+
             foreach (var item in discMap)
             {
                 var discipline = new Discipline
@@ -73,20 +72,18 @@ namespace Json.Da
                     Competencies = item.Value,
                     NamePat = discJson.NamePat,
                     Koi = discJson.Koi,
-                    Date= discJson.Date,
-                    DisciplineTarget= discJson.DisciplineTarget,
-                    OPOP= discJson.OPOP,
-                    Know= discJson.Know,
-                    BeAbleTo= discJson.BeAbleTo,
-                    Own= discJson.Own,
-                    ControlTasks= discJson.ControlTasks,
-                    TestTasks= discJson.TestTasks,
-                    QuestionForTest= discJson.QuestionForTest,
-                    InformationSupportOfDiscipline= discJson.InformationSupportOfDiscipline,
-                    LogisticsOfTheDiscipline= discJson.LogisticsOfTheDiscipline,
-                    UpdateSheet= discJson.UpdateSheet,
-                    EducTechn=discJson.EducTechn,
-                    DiscMap=discJson.DiscMap
+                    Date = discJson.Date,
+                    DisciplineTarget = discJson.DisciplineTarget,
+                    OPOP = discJson.OPOP,
+                    Know = discJson.Know,
+                    BeAbleTo = discJson.BeAbleTo,
+                    Own = discJson.Own,
+                    ControlTasks = discJson.ControlTasks,
+                    TestTasks = discJson.TestTasks,
+                    QuestionForTest = discJson.QuestionForTest,
+                    InformationSupportOfDiscipline = discJson.InformationSupportOfDiscipline,
+                    LogisticsOfTheDiscipline = discJson.LogisticsOfTheDiscipline,
+                    UpdateSheet = discJson.UpdateSheet,
                 };
                 discList.Add(discipline);
             }
@@ -94,3 +91,4 @@ namespace Json.Da
         }
     }
 }
+

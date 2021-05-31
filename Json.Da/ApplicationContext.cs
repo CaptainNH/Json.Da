@@ -14,7 +14,9 @@ namespace Json.Da
         public DbSet<Syllabus> Syllabuses { get; set; }
         public DbSet<Workload> Workload{ get; set; }
         public DbSet<Competencie> Competencie { get; set; }
-
+        public DbSet<EducTechn> EducTechns { get; set; }
+        public DbSet<DisccMap> DisccMaps { get; set; }
+        public DbSet<ResultMark> ResultMarks { get; set; }
         public ApplicationContext()
         {
             Database.EnsureDeleted();

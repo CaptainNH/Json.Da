@@ -31,11 +31,12 @@ namespace Json.Da
         public string InformationSupportOfDiscipline { get; set; }
         public string LogisticsOfTheDiscipline { get; set; }
         public string UpdateSheet { get; set; }
-        [NotMapped]
-        public List<string> EducTechn { get; set; }
-        [NotMapped]
-        public List<string> DiscMap { get; set; }
-        [NotMapped]
-        public string MethodologyAssessment { get; set; }
+      //  public EducTechn Et { get; set; }
+        //[NotMapped]
+        //public List<string> EducTechn { get; set; }
+        //[NotMapped]
+        //public List<string> DiscMap { get; set; }
+        //[NotMapped]
+        //public string MethodologyAssessment { get; set; }
     }
 }

@@ -11,6 +11,7 @@ using Excel = Microsoft.Office.Interop.Excel;
 using System.Runtime.InteropServices;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
+using System.Data;
 
 namespace Json.Da
 {
@@ -19,24 +20,15 @@ namespace Json.Da
         static void Main(string[] args)
         {
             //string path = Environment.CurrentDirectory;
-            //string pathJson = path + @"\..\..\Documents\Jsons\0main.json";
+            //string pathJson = path + @"\..\..\Documents\Jsons\3theAresultingAssessment.json";
             //var text = File.ReadAllText(pathJson);
-            //Discipline disc = JsonConvert.DeserializeObject<Discipline>(text);
-            //Console.WriteLine(disc.DiscMap.Count);
-            ////foreach (var item in disc.DiscMap)
-            ////{
-            ////   Console.WriteLine(item);
-
-            //var edic = disc.DiscMap;
-            //foreach (var item in edic)
+            //var disc = JsonConvert.DeserializeObject<DataSet>(text);
+            //var discTab = disc.Tables["ResultMark"];
+            //foreach (DataRow row in discTab.Rows)
             //{
-            //    var str = item.Split('*');
-            //    foreach (var i in str)
-            //    {
-            //        Console.WriteLine(i);
-            //    }
-            //    Console.WriteLine("*********************************");
+            //    Console.WriteLine(row["Second"]);
             //}
+
 
 
             using (ApplicationContext db = new ApplicationContext())
@@ -48,14 +40,34 @@ namespace Json.Da
                 //    //    db.SaveChanges();
                 //    //}
                 //    //Console.WriteLine("Сотрудники успешно сохранены");
-
-                var disclist = AddDiscipline.GenerateDisciplineList();
-
-                foreach (var d in disclist)
+                //var educList = AddEducTechn.AddEducTechns();
+                //foreach (var ed in educList)
+                //{
+                //    db.EducTechns.Add(ed);
+                //    db.SaveChanges();
+                //}
+                //Console.WriteLine("Таблица успешно сохранена");
+                var resMarkList = AddWordTable.AddResultM();
+                foreach (var rm in resMarkList)
                 {
-                    db.Disciplines.Add(d);
+                    db.ResultMarks.Add(rm);
                     db.SaveChanges();
                 }
+                Console.WriteLine("Таблица аубуба");
+                //var discMapList = AddDiscMap.AddDiscApp();
+                //foreach (var dm in discMapList)
+                //{
+                //    db.DisccMaps.Add(dm);
+                //    db.SaveChanges();
+                //}
+                //Console.WriteLine("Таблица аубуба");
+                //var disclist = AddDiscipline.GenerateDisciplineList();
+
+                //foreach (var d in disclist)
+                //{
+                //    db.Disciplines.Add(d);
+                //    db.SaveChanges();
+                //}
                 //Console.WriteLine("Предметы успешно сохранены");
                 //    //var syllist = AddSyllabus.GenerateSyllabus(disclist);
                 //    //foreach (var s in syllist)
