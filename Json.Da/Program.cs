@@ -83,13 +83,6 @@ namespace Json.Da
                     db.SaveChanges();
                 }
                 Console.WriteLine("Нагрузки успешно сохранены");
-                var compList = AddCompetencie.GenerateCompetencies();
-                foreach (var comp in compList)
-                {
-                    db.Workload.Add(wl);
-                    db.SaveChanges();
-                }
-                Console.WriteLine("Нагрузки успешно сохранены");
             }
         }
     }
