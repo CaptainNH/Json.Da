@@ -10,54 +10,23 @@ namespace Json.Da
 {
     class AddSyllabus
     {
-        public static void FileProcessing(List<Discipline> predmetlist, List<Syllabus> listSyllabus, IXLWorksheet workSheetTitle, IXLWorksheet workSheetPlan)
+        public static void FileProcessing(List<Discipline> predmetlist, List<Syllabus> listSyllabus, IXLWorksheet workSheetTitle, IXLWorksheet workSheetPlan, IXLWorksheet workSheetComp)
         {
-            
-
-
+            var compDic = CreateCompDic(workSheetComp);
             var firstColumn = 'Q' - 'A' + 1;
             var lastColumn = ('D' - 'A' + 1) * ('Z' - 'A' + 1);
-            for (int r = 6; r < 150; r++)
+            var firstRow = 6;
+            var lastRow = workSheetPlan.RowsUsed().Count();
+            for (int r = firstRow; r < lastRow; r++)
             {
                 var subjectName = workSheetPlan.Cell(r, 3);
                 if (!string.IsNullOrEmpty(subjectName.Value.ToString()) && !subjectName.Style.Font.Bold)
                     for (int c = firstColumn; c < lastColumn; c += 7)
-                    {
-                        if (!string.IsNullOrEmpty(workSheetPlan.Cell(2, c).Value.ToString()))
-                        {
-                            var syllabus = new Syllabus();
-
-                            syllabus.Predmet = predmetlist.Find(item => item.Name == subjectName.Value.ToString());
-
-                            syllabus.SetYear(workSheetTitle, "T29");
-                            syllabus.SetDirectionAndProfile(workSheetTitle, "B18");
-                            syllabus.SetStudyProgram(workSheetTitle, "F14");
-                            syllabus.SetStandart(workSheetTitle, "T31");
-                            syllabus.SetProtocol(workSheetTitle, "A13");
-                            syllabus.SetEdForm(workSheetTitle, "A31", "A30");
-                            syllabus.SetDirectionAbbreviation(workSheetTitle, "B18");
-                            syllabus.SetDirestor("А.М. Дигурова", "Б.В. Туаева", "Л.А. Агузарова");
-                            syllabus.SetDirestor("Проректор по УР", "Проректор по научной деятельности", "Первый проректор");
-
-                            syllabus.SetSemester(workSheetPlan, c);
-                            syllabus.SetAuditoryLessons(workSheetPlan, r);
-                            syllabus.SetCourseWork(workSheetPlan, r);
-                            syllabus.SetCreditUnits(workSheetPlan, r);
-                            syllabus.SetExam(workSheetPlan, r);
-                            syllabus.SetHours(workSheetPlan, r);
-                            syllabus.SetSubjectName(workSheetPlan, r);
-                            syllabus.SetInteractiveWatch(workSheetPlan, r);
-                            syllabus.SetLaboratoryExercises(workSheetPlan, r, c);
-                            syllabus.SetLestures(workSheetPlan, r, c);                            
-                            syllabus.SetSumIndependentWork(workSheetPlan, r);
-                            syllabus.SetTests(workSheetPlan, r);
-                            syllabus.SetWorkshops(workSheetPlan, r, c);
-                            syllabus.SetCourse();
-                            syllabus.SetTypesOfLessons();
-
-                            listSyllabus.Add(syllabus);
-                        }
-                    }
+                        if (!string.IsNullOrEmpty(workSheetPlan.Cell(2, c).Value.ToString()) 
+                            && !string.IsNullOrEmpty(workSheetPlan.Cell(r, c+1).Value.ToString()))
+                            listSyllabus.Add(
+                                new Syllabus(predmetlist, listSyllabus, workSheetTitle, workSheetPlan, workSheetComp, compDic, r, c)
+                                );
             }
         }
 
@@ -65,7 +34,7 @@ namespace Json.Da
         {
             var listSyllabus = new List<Syllabus>();
             string path = Environment.CurrentDirectory + @"\..\..\Documents\Бакалавриат\ПМ";//Путь до Debug
-
+            //string path = Environment.CurrentDirectory + @"\..\..\Documents\Аспирантура";//Путь до Debug
 
             var AllFiles = Directory.EnumerateFiles(path, "*.xls", SearchOption.AllDirectories);
             foreach (var pathFile in AllFiles)
@@ -74,9 +43,21 @@ namespace Json.Da
                 var xlBook = new XLWorkbook(pathFile);
                 var xlTitle = xlBook.Worksheet("Титул");
                 var xlPlan = xlBook.Worksheet("План");
-                FileProcessing(predmetlist, listSyllabus, xlTitle, xlPlan);
+                var xlComp = xlBook.Worksheet("Компетенции");
+                FileProcessing(predmetlist, listSyllabus, xlTitle, xlPlan, xlComp);
             }
             return listSyllabus;               
         }
+
+        public static Dictionary<string, string> CreateCompDic(IXLWorksheet competencie)
+        {
+            Dictionary<string, string> compDic = new Dictionary<string, string>();
+            for (int i = 1; i < 200; i++)
+                if (!string.IsNullOrEmpty(competencie.Cell("B" + i).Value.ToString()))
+                    compDic.Add(competencie.Cell("B" + i).Value.ToString(),
+                         competencie.Cell("D" + i).Value.ToString());
+            return compDic;
+        }
+
     }
 }
