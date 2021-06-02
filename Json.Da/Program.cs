@@ -19,34 +19,34 @@ namespace Json.Da
     {
         static void Main(string[] args)
         {
-            //string path = Environment.CurrentDirectory;
-            //string pathJson = path + @"\..\..\Documents\Jsons\3theAresultingAssessment.json";
-            //var text = File.ReadAllText(pathJson);
-            //var disc = JsonConvert.DeserializeObject<DataSet>(text);
-            //var discTab = disc.Tables["ResultMark"];
-            //foreach (DataRow row in discTab.Rows)
-            //{
-            //    Console.WriteLine(row["Second"]);
-            //}
+            string path = Environment.CurrentDirectory;
+            string pathJson = path + @"\..\..\Documents\Jsons\3theAresultingAssessment.json";
+            var text = File.ReadAllText(pathJson);
+            var disc = JsonConvert.DeserializeObject<DataSet>(text);
+            var discTab = disc.Tables["ResultMark"];
+            foreach (DataRow row in discTab.Rows)
+            {
+                Console.WriteLine(row["Second"]);
+            }
 
 
 
             using (ApplicationContext db = new ApplicationContext())
             {
-                //    //var emplist = AddEmployee.GenerateList();
-                //    //foreach (var e in emplist)
-                //    //{
-                //    //    db.Employees.Add(e);
-                //    //    db.SaveChanges();
-                //    //}
-                //    //Console.WriteLine("Сотрудники успешно сохранены");
-                //var educList = AddEducTechn.AddEducTechns();
-                //foreach (var ed in educList)
-                //{
-                //    db.EducTechns.Add(ed);
-                //    db.SaveChanges();
-                //}
-                //Console.WriteLine("Таблица успешно сохранена");
+                var emplist = AddEmployee.GenerateList();
+                foreach (var e in emplist)
+                {
+                    db.Employees.Add(e);
+                    db.SaveChanges();
+                }
+                Console.WriteLine("Сотрудники успешно сохранены");
+                var educList = AddWordTable.AddEducTechns();
+                foreach (var ed in educList)
+                {
+                    db.EducTechns.Add(ed);
+                    db.SaveChanges();
+                }
+                Console.WriteLine("Таблица успешно сохранена");
                 var resMarkList = AddWordTable.AddResultM();
                 foreach (var rm in resMarkList)
                 {
@@ -54,41 +54,41 @@ namespace Json.Da
                     db.SaveChanges();
                 }
                 Console.WriteLine("Таблица аубуба");
-                //var discMapList = AddDiscMap.AddDiscApp();
-                //foreach (var dm in discMapList)
-                //{
-                //    db.DisccMaps.Add(dm);
-                //    db.SaveChanges();
-                //}
-                //Console.WriteLine("Таблица аубуба");
-                //var disclist = AddDiscipline.GenerateDisciplineList();
+                var discMapList = AddWordTable.AddDiscApp();
+                foreach (var dm in discMapList)
+                {
+                    db.DisccMaps.Add(dm);
+                    db.SaveChanges();
+                }
+                Console.WriteLine("Таблица аубуба");
+                var disclist = AddDiscipline.GenerateDisciplineList();
 
-                //foreach (var d in disclist)
-                //{
-                //    db.Disciplines.Add(d);
-                //    db.SaveChanges();
-                //}
-                //Console.WriteLine("Предметы успешно сохранены");
-                //    //var syllist = AddSyllabus.GenerateSyllabus(disclist);
-                //    //foreach (var s in syllist)
-                //    //{
-                //    //    db.Syllabuses.Add(s);
-                //    //    db.SaveChanges();
-                //    //}
-                //    //Console.WriteLine("Учебные планы успешно сохранены");
-                //    //var wllist = AddWorkload.GenerateNeedInfForWorkLoad(emplist, disclist, syllist);
-                //    //foreach (var wl in wllist)
-                //    //{
-                //    //    db.Workload.Add(wl);
-                //    //    db.SaveChanges();
-                //    //}
-                //    //Console.WriteLine("Нагрузки успешно сохранены");
-                //    //var compList = AddCompetencie.GenerateCompetencies();
-                //    //foreach (var comp in compList)
-                //    //{
-                //    //    db.Competencie.Add(comp);
-                //    //    db.SaveChanges();
-                //    //}
+                foreach (var d in disclist)
+                {
+                    db.Disciplines.Add(d);
+                    db.SaveChanges();
+                }
+                Console.WriteLine("Предметы успешно сохранены");
+                var syllist = AddSyllabus.GenerateSyllabus(disclist);
+                foreach (var s in syllist)
+                {
+                    db.Syllabuses.Add(s);
+                    db.SaveChanges();
+                }
+                Console.WriteLine("Учебные планы успешно сохранены");
+                var wllist = AddWorkload.GenerateNeedInfForWorkLoad(emplist, disclist, syllist);
+                foreach (var wl in wllist)
+                {
+                    db.Workload.Add(wl);
+                    db.SaveChanges();
+                }
+                Console.WriteLine("Нагрузки успешно сохранены");
+                var compList = AddCompetencie.GenerateCompetencies();
+                foreach (var comp in compList)
+                {
+                    db.Competencie.Add(comp);
+                    db.SaveChanges();
+                }
             }
         }
     }
