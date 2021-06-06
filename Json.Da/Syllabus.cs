@@ -10,101 +10,87 @@ namespace Json.Da
 {
     class Syllabus
     {
-        public int Id { get; set; }
+        //Поле  для базы данных
+        public int Id { get; set; }//
 
-        public int Year { get; set; }
-        /*{
-            get { return Year; }
-            set 
-            { 
-                if (value>1900)
-                {
-                    Year = value;
-                }
-            } 
-        }*/
-        public string Direction { get; set; }//
-        public string Profile { get; set; }//
-        public string StudyProgram { get; set; }//
-        private bool IsGraduateSchool { get; set; }//
-        public string Standart {get; set;}//
-        public string Protocol { get; set; }//
-        public string EdForm { get; set; }//
-        public string DirectionAbbreviation { get; set; }//
-        public string Director { get; set; }//
-        public string Position { get; set; }
+        //Вспомогательное поле
+        private bool IsGraduateSchool { get; set; } //Показывает это аспирантуриа или нет
 
-        public string SubjectName { get; set; }//
-        public Discipline Predmet { get; set; }
-        public string Semester { get; set; }//
-        public string Course { get; set; }//
-        public int CreditUnits { get; set; }//
-        public string Hours { get; set; }//
-        public string CourseWork { get; set; }//
-        public string SumIndependentWork { get; set; }//
-        public string InteractiveWatch { get; set; }//
-        public bool Test { get; set; }//
-        public bool Exam { get; set; }//
-        public bool Consulting { get; set; }//
-        public int Lectures { get; set; }//
-        public int LaboratoryExercises { get; set; }//
-        public int Workshops { get; set; }//
-        public double IndependentWorkBySemester { get; set; }//
-        public string TypesOfLessons { get; set; }//
-        public double AuditoryLessons { get; set; }//
-        public string SubjectIndex { get; set; }//
-        public string SubjectIndexDecoding { get; set; }//
-        public string Competencies { get; set; }//
+        //Основные поля
+        public int Year { get; set; } //Год начала обучения
+        public string Direction { get; set; } //Направле обучения
+        public string Profile { get; set; } //Профиль
+        public string StudyProgram { get; set; } //Программа обучения
+        public string Standart {get; set; } //Стандарт
+        public string Protocol { get; set; } //Протокоп
+        public string EdForm { get; set; } //Форма обучения
+        public string DirectionAbbreviation { get; set; } //Аббревиатура направления обучения
+        public string Director { get; set; } //Директор
+        public string Position { get; set; } //Должность
+        public string SubjectName { get; set; } //Название дисциплины
+        public Discipline Predmet { get; set; } //Содержит неизменяемую информацию о дисциплине
+        public string Semester { get; set; } //Номер семестра
+        public string Course { get; set; } //Номер курса
+        public int CreditUnits { get; set; } //Зачётные единицы
+        public string Hours { get; set; } //Общее количество часов
+        public string CourseWork { get; set; } //Наличие курсовой работы
+        public string SumIndependentWork { get; set; } //Сумма часов самостоятельной работы
+        public string InteractiveWatch { get; set; } //Сумма интерактивных часов
+        public bool Test { get; set; } //Наличие зачёта
+        public bool Exam { get; set; } //Наличие экзамена
+        public bool Consulting { get; set; } //Наличие консультаций
+        public int Lectures { get; set; } //Количество часов лекций за семестр
+        public int LaboratoryExercises { get; set; } //Количество часов лабораторных работ за семестр
+        public int Workshops { get; set; } //Количество часов практик за семестр
+        public double IndependentWorkBySemester { get; set; } //Количество часов самостоятельных работ за семестр
+        public string TypesOfLessons { get; set; } //Типы занятий за семестр
+        public double AuditoryLessons { get; set; } //Общее количество аудиторных занятий
+        public string SubjectIndex { get; set; } //Индекс дисциплины
+        public string SubjectIndexDecoding { get; set; } //Расшифровка индекса дисциплины
+        public string Competencies { get; set; } //Компетенции
 
-        //SubjectCompetencies////
-        //SubjectIndex////
-        //DecodeSubgectIndex////
-        //IndependentWorkBySemester////
-        //Consulting////
-
-        //sumLectures
-        //sumLabs
-        //sumWorkshops
         public Syllabus()
         {
             Semester = "-";
         }
 
-        public Syllabus(List<Discipline> predmetlist, List<Syllabus> listSyllabus, IXLWorksheet workSheetTitle, IXLWorksheet workSheetPlan, IXLWorksheet workSheetComp, Dictionary<string, string> compDic, int row, int column)
+        public Syllabus
+            (List<Discipline> predmetlist, List<Syllabus> listSyllabus, 
+            IXLWorksheet workSheetTitle, IXLWorksheet workSheetPlan, IXLWorksheet workSheetComp, 
+            Dictionary<string, string> compDic, int row, int column)
         {
-
-
-            SetYear(workSheetTitle, "T29");
-            SetDirectionAndProfile(workSheetTitle, "B18");
-            SetStudyProgram(workSheetTitle, "F14");
-            SetStandart(workSheetTitle, "T31");
-            SetProtocol(workSheetTitle, "A13");
-            SetEdForm(workSheetTitle, "A31", "A30");
-            SetDirectionAbbreviation(workSheetTitle, "B18");
-            SetDirestor("А.М. Дигурова", "Б.В. Туаева", "Л.А. Агузарова");
-            SetPosition("Проректор по УР", "Проректор по научной деятельности", "Первый проректор");
-
-            SetSemester(workSheetPlan, column);
-            SetAuditoryLessons(workSheetPlan, row);
-            SetCourseWork(workSheetPlan, row);
-            SetCreditUnits(workSheetPlan, row);
-            SetExam(workSheetPlan, row);
-            SetHours(workSheetPlan, row);
-            SetSubjectName(workSheetPlan, row);
-            SetInteractiveWatch(workSheetPlan, row);
-            SetLaboratoryExercises(workSheetPlan, row, column);
-            SetLestures(workSheetPlan, row, column);
-            SetSumIndependentWork(workSheetPlan, row);
-            SetTests(workSheetPlan, row);
-            SetWorkshops(workSheetPlan, row, column);
-            SetCourse();
-            SetTypesOfLessons();
-            SetCompetencies(workSheetPlan, row, compDic);
-            SetSubjectIndex(workSheetPlan, row);
-            DecodeSubjectIndex(workSheetPlan, row);
-            SetIndependentWorkBySemester(workSheetPlan, row, column);
-            SetConsulting(workSheetPlan, row);
-            Predmet = predmetlist.Find(item => item.Name == this.SubjectName);
+            //Запонение из титульного листа
+            SetYear(workSheetTitle, "T29"); //Вытягивает год начала обучения
+            SetDirectionAndProfile(workSheetTitle, "B18"); //Вытягивает направление обучения и профиль
+            SetStudyProgram(workSheetTitle, "F14"); //Вытягивает программу обучения
+            SetStandart(workSheetTitle, "T31"); //Вытягивает стандарт
+            SetProtocol(workSheetTitle, "A13"); //Вытягивает протокол
+            SetEdForm(workSheetTitle, "A31", "A30"); //Вытягивает форму обучения
+            SetDirectionAbbreviation(workSheetTitle, "B18"); //Вытягивает аббревиатуру направления обучения
+            SetDirestor("А.М. Дигурова", "Б.В. Туаева", "Л.А. Агузарова"); //Устанавливает директора
+            SetPosition("Проректор по УР", "Проректор по научной деятельности", "Первый проректор"); //Устанавливает должность
+            //Запонение из листа план
+            SetSemester(workSheetPlan, column); //Вытягивает номер семестра
+            SetAuditoryLessons(workSheetPlan, row); //Вытягивает сумму аудиторных занятий
+            SetCourseWork(workSheetPlan, row); //Устанавливает наличие курсовой работы
+            SetCreditUnits(workSheetPlan, row); //Вытягивает зачётные еденицы
+            SetExam(workSheetPlan, row); //Устанавливает наличие экзаменя
+            SetHours(workSheetPlan, row); //Вытягивает общее количество часов обучения
+            SetSubjectName(workSheetPlan, row); //Вытягивает название предмета
+            SetInteractiveWatch(workSheetPlan, row); //Вытягивает количество интеративных часов
+            SetLaboratoryExercises(workSheetPlan, row, column); //Вытягивает количество часов лабораторных работ
+            SetLestures(workSheetPlan, row, column); //Вытягивает количество часов лекций
+            SetSumIndependentWork(workSheetPlan, row); //Вытягивает общее количество часов самостоятельной работы
+            SetTests(workSheetPlan, row); //Устанавливает наличие зачёта
+            SetWorkshops(workSheetPlan, row, column); //Вытягивает количество часов практик
+            SetCourse(); //Устанавливает номер курса
+            SetTypesOfLessons(); //Устанавливает типы аудиторных занятий
+            SetCompetencies(workSheetPlan, row, compDic); //Устанавливает компетенции
+            SetSubjectIndex(workSheetPlan, row); //Вытягивает индекс дисциплины
+            DecodeSubjectIndex(workSheetPlan, row); //Расшифровывает индекс дисциплины
+            SetIndependentWorkBySemester(workSheetPlan, row, column); //Вытягивает количество часо самостоятельной работы за семестр
+            SetConsulting(workSheetPlan, row); //Устанавливает наличие консультаций
+            Predmet = predmetlist.Find(item => item.Name == this.SubjectName); //Сопоставляет каждой дисциплине класс Discipline
         }
 
         public void SetYear(IXLWorksheet workSheet, string cellName)
@@ -112,6 +98,7 @@ namespace Json.Da
             if (!string.IsNullOrEmpty(workSheet.Cell(cellName).Value.ToString()))
                 this.Year = Convert.ToInt32(workSheet.Cell(cellName).Value.ToString());
         }
+
         public static int OnlyYear(IXLWorksheet workSheet, string cellName)
         {
             int a = 0;  
@@ -121,6 +108,7 @@ namespace Json.Da
             }
             return a;
         }
+
         public static string SetOnlyDirection(IXLWorksheet workSheet, string cellName)
         {
             string[] separators = new string[] {"Направленность программы", "Направление подготовки", "Профиль",
@@ -130,6 +118,7 @@ namespace Json.Da
             return direct; //Получить направление
 
         }
+
         public void SetDirectionAndProfile(IXLWorksheet workSheet, string cellName)
         {
             string[] separators = new string[] {"Направленность программы", "Направление подготовки", "Профиль",
