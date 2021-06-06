@@ -25,7 +25,7 @@ namespace Json.Da
                         if (!string.IsNullOrEmpty(workSheetPlan.Cell(2, c).Value.ToString()) 
                             && !string.IsNullOrEmpty(workSheetPlan.Cell(r, c+1).Value.ToString()))
                             listSyllabus.Add(
-                                new Syllabus(predmetlist, workSheetTitle, workSheetPlan, workSheetComp, compDic, r, c)
+                                new Syllabus(predmetlist, workSheetTitle, workSheetPlan, compDic, r, c)
                                 );
             }
         }

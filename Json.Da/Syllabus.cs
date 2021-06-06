@@ -56,7 +56,7 @@ namespace Json.Da
 
         public Syllabus
             (List<Discipline> predmetlist, 
-            IXLWorksheet workSheetTitle, IXLWorksheet workSheetPlan, IXLWorksheet workSheetComp, 
+            IXLWorksheet workSheetTitle, IXLWorksheet workSheetPlan, 
             Dictionary<string, string> compDic, int row, int column)
         {
             //Запонение из титульного листа
