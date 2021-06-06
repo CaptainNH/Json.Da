@@ -23,6 +23,7 @@ namespace Json.Da
         public string DisciplineTarget { get; set; }
         public string OPOP { get; set; }
         public string Know { get; set; }
+
         public string BeAbleTo { get; set; }
         public string Own { get; set; }
         public string ControlTasks { get; set; }

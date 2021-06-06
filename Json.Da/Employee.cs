@@ -12,18 +12,18 @@ namespace Json.Da
     {
         public int Id { get; set; }
 
-        public string Surname { get; set; }
+        public string Surname { get; set; }//Фамилия
 
-        public string Name { get; set; }
+        public string Name { get; set; }//Имя
 
-        public string Fathername { get; set; }
+        public string Fathername { get; set; }//Отчество
 
-        public string Position { get; set; }
+        public string Position { get; set; }//Должность
 
-        public string Rank { get; set; }
+        public string Rank { get; set; }//Звание
 
-        public double Rate { get; set; }
+        public double Rate { get; set; }//Показатель
 
-        public string Chair { get; set; }
+        public string Chair { get; set; }//Кафедра
     }
 }

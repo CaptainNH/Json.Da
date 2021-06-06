@@ -39,14 +39,14 @@ namespace Json.Da
         public static List<Employee> GenerateList()
         {
             string path = Environment.CurrentDirectory;
-            var empList = new List<Employee>();
+            var empList = new List<Employee>();//Лист сотрудников
             Svedenia = OpenExcelFile(path + @"\..\..\Documents\Svedenia.xlsx", "Сведения о преподавателях");
             Nagruzki = OpenExcelFile(path + @"\..\..\Documents\Nagruzki.xlsx", "Сводное поручение");
             var range1 = Svedenia.Range("A3:C120");
             var range2 = Nagruzki.Range("B13:I19");
-            foreach (var row in range1.Rows())
+            foreach (var row in range1.Rows())//Заполнение каждого поля класса
             {
-                string[] fio = row.FirstCell().GetString().Trim().Split();
+                string[] fio = row.FirstCell().GetString().Trim().Split();//Получение ФИО преподавателя 
                 string surname = fio[0].Trim();
                 string name = fio[1].Trim();
                 string fathername = fio[2].Trim();
@@ -54,7 +54,7 @@ namespace Json.Da
                 string chair = "-";
                 double rate = FindRate(fioSearch, range2, ref chair);
                 string[] s = row.Cell(3).GetString().Split(',');
-                string pos = s[0].Trim().Split(new string[] { "Должность" }, StringSplitOptions.None)[1].Trim(new char[] { ' ', '-', '–' });
+                string pos = s[0].Trim().Split(new string[] { "Должность" }, StringSplitOptions.None)[1].Trim(new char[] { ' ', '-', '–' });//Должность препод.
                 string rank = "-";
                 if (s.Length == 3)
                 {
@@ -73,8 +73,8 @@ namespace Json.Da
                     Rank = rank,
                     Rate = rate,
                     Chair = chair                    
-                };
-                empList.Add(prepod);
+                };  
+                empList.Add(prepod);//Добавление в лист
             }            
             return empList;
         }
