@@ -55,48 +55,48 @@ namespace Json.Da
         }
 
         public Syllabus
-            (List<Discipline> predmetlist, List<Syllabus> listSyllabus, 
+            (List<Discipline> predmetlist, 
             IXLWorksheet workSheetTitle, IXLWorksheet workSheetPlan, IXLWorksheet workSheetComp, 
             Dictionary<string, string> compDic, int row, int column)
         {
             //Запонение из титульного листа
-            SetYear(workSheetTitle, "T29"); //Вытягивает год начала обучения
-            SetDirectionAndProfile(workSheetTitle, "B18"); //Вытягивает направление обучения и профиль
-            SetStudyProgram(workSheetTitle, "F14"); //Вытягивает программу обучения
-            SetStandart(workSheetTitle, "T31"); //Вытягивает стандарт
-            SetProtocol(workSheetTitle, "A13"); //Вытягивает протокол
-            SetEdForm(workSheetTitle, "A31", "A30"); //Вытягивает форму обучения
-            SetDirectionAbbreviation(workSheetTitle, "B18"); //Вытягивает аббревиатуру направления обучения
+            SetYear(workSheetTitle, "T29"); //Извлкает год начала обучения
+            SetDirectionAndProfile(workSheetTitle, "B18"); //Извлкает направление обучения и профиль
+            SetStudyProgram(workSheetTitle, "F14"); //Извлкает программу обучения
+            SetStandart(workSheetTitle, "T31"); //Извлкает стандарт
+            SetProtocol(workSheetTitle, "A13"); //Извлкает протокол
+            SetEdForm(workSheetTitle, "A31", "A30"); //Извлкает форму обучения
+            SetDirectionAbbreviation(workSheetTitle, "B18"); //Извлкает аббревиатуру направления обучения
             SetDirestor("А.М. Дигурова", "Б.В. Туаева", "Л.А. Агузарова"); //Устанавливает директора
             SetPosition("Проректор по УР", "Проректор по научной деятельности", "Первый проректор"); //Устанавливает должность
             //Запонение из листа план
-            SetSemester(workSheetPlan, column); //Вытягивает номер семестра
-            SetAuditoryLessons(workSheetPlan, row); //Вытягивает сумму аудиторных занятий
+            SetSemester(workSheetPlan, column); //Извлкает номер семестра
+            SetAuditoryLessons(workSheetPlan, row); //Извлкает сумму аудиторных занятий
             SetCourseWork(workSheetPlan, row); //Устанавливает наличие курсовой работы
-            SetCreditUnits(workSheetPlan, row); //Вытягивает зачётные еденицы
+            SetCreditUnits(workSheetPlan, row); //Извлкает зачётные еденицы
             SetExam(workSheetPlan, row); //Устанавливает наличие экзаменя
-            SetHours(workSheetPlan, row); //Вытягивает общее количество часов обучения
-            SetSubjectName(workSheetPlan, row); //Вытягивает название предмета
-            SetInteractiveWatch(workSheetPlan, row); //Вытягивает количество интеративных часов
-            SetLaboratoryExercises(workSheetPlan, row, column); //Вытягивает количество часов лабораторных работ
-            SetLestures(workSheetPlan, row, column); //Вытягивает количество часов лекций
-            SetSumIndependentWork(workSheetPlan, row); //Вытягивает общее количество часов самостоятельной работы
+            SetHours(workSheetPlan, row); //Извлкает общее количество часов обучения
+            SetSubjectName(workSheetPlan, row); //Извлкает название предмета
+            SetInteractiveWatch(workSheetPlan, row); //Извлкает количество интеративных часов
+            SetLaboratoryExercises(workSheetPlan, row, column); //Извлкает количество часов лабораторных работ
+            SetLestures(workSheetPlan, row, column); //Извлкает количество часов лекций
+            SetSumIndependentWork(workSheetPlan, row); //Извлкает общее количество часов самостоятельной работы
             SetTests(workSheetPlan, row); //Устанавливает наличие зачёта
-            SetWorkshops(workSheetPlan, row, column); //Вытягивает количество часов практик
+            SetWorkshops(workSheetPlan, row, column); //Извлкает количество часов практик
             SetCourse(); //Устанавливает номер курса
             SetTypesOfLessons(); //Устанавливает типы аудиторных занятий
             SetCompetencies(workSheetPlan, row, compDic); //Устанавливает компетенции
-            SetSubjectIndex(workSheetPlan, row); //Вытягивает индекс дисциплины
+            SetSubjectIndex(workSheetPlan, row); //Извлкает индекс дисциплины
             DecodeSubjectIndex(workSheetPlan, row); //Расшифровывает индекс дисциплины
-            SetIndependentWorkBySemester(workSheetPlan, row, column); //Вытягивает количество часо самостоятельной работы за семестр
+            SetIndependentWorkBySemester(workSheetPlan, row, column); //Извлкает количество часо самостоятельной работы за семестр
             SetConsulting(workSheetPlan, row); //Устанавливает наличие консультаций
             Predmet = predmetlist.Find(item => item.Name == this.SubjectName); //Сопоставляет каждой дисциплине класс Discipline
         }
 
         public void SetYear(IXLWorksheet workSheet, string cellName)
         {
-            if (!string.IsNullOrEmpty(workSheet.Cell(cellName).Value.ToString()))
-                this.Year = Convert.ToInt32(workSheet.Cell(cellName).Value.ToString());
+            if (!string.IsNullOrEmpty(workSheet.Cell(cellName).Value.ToString()))// Проверка на пустоту
+                this.Year = Convert.ToInt32(workSheet.Cell(cellName).Value.ToString());// присваивание значения
         }
 
         public static int OnlyYear(IXLWorksheet workSheet, string cellName)
@@ -395,32 +395,34 @@ namespace Json.Da
             string[] s = this.SubjectIndex.Split('.');
             string subjectIndexDecoding = "";
             int i = row;
-            while (!string.IsNullOrEmpty(workSheet.Cell(i,2).Value.ToString()))
-                i--;
-            subsectionName = workSheet.Cell(i, 1).Value.ToString().Trim(' ');
+            while (!string.IsNullOrEmpty(workSheet.Cell(i,2).Value.ToString()))               
+                i--;//Двигается вверх пока не найдёт пустую клетку в столбце "Наименование"
+            subsectionName = workSheet.Cell(i, 1).Value.ToString().Trim(' ');//Извлекает название части
 
             while (workSheet.Cell(i, 1).Value.ToString().Split()[0].ToLower() != "блок")
-                i--;
+                i--;//Двигается вверх пока не найдёт клетку, в которой написано слово блок" в столбце "Считать в плане"
             string[] ss = workSheet.Cell(i, 1).Value.ToString().Trim(' ').Split('.');
-            blockName = ss[0] + ". " + ss[1] + ". ";
+            blockName = ss[0] + ". " + ss[1] + ". ";//Извлекает название и номер блока
 
             if (!string.IsNullOrEmpty(blockName) && !string.IsNullOrEmpty(subsectionName))
-                subjectIndexDecoding += blockName + subsectionName + ". ";
+                subjectIndexDecoding += blockName + subsectionName + ". ";//Объеденяет название блока и названи части
             if (s.Length > 2)
                 if (s[2].ToLower() == "дв")
-                    subjectIndexDecoding += "Дисциплины по выбору.";
+                    subjectIndexDecoding += "Дисциплины по выбору.";//Добавляет "дисциплины по выбору" если они есть
             this.SubjectIndexDecoding = subjectIndexDecoding;
         }
 
         public void SetCompetencies(IXLWorksheet workSheet, int row, Dictionary<string, string> compDic)
         {
             var resultList = new List<string>();
-            var competenciesList = workSheet.Cell(row, workSheet.ColumnsUsed().Count()).Value.ToString().Split(';', ' ').ToList();
+            var competenciesList = workSheet.Cell(row, 
+                workSheet.ColumnsUsed().Count()).Value.ToString().Split(';', ' ').ToList();
+            //Извлекает компетенции дисциплины
             foreach (var item in competenciesList)
                 if (!string.IsNullOrEmpty(item))
                     if (compDic.ContainsKey(item))
-                        resultList.Add($"{item}" + " -" + compDic[item]);
-            this.Competencies = "\t" + string.Join(";\n\t", resultList) + ".";
+                        resultList.Add($"{item}" + " -" + compDic[item]);//Находит такие же в словаре
+            this.Competencies = "\t" + string.Join(";\n\t", resultList) + ".";//Переводит в строку
         }
     }
 }
